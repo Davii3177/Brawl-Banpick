@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,900&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#080a0f; font-family:'Nunito Sans',system-ui,sans-serif; }
+  a { color:#fbbf24; text-decoration:none; }
+  a:hover { color:#fde68a; }
+  input { font-family:inherit; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:#2a3244; border-radius:8px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+</style>
+</helmet>
+
+<section style="display:flex;gap:56px;padding:56px;align-items:flex-start;flex-wrap:wrap">
+
+  <div id="1a" style="flex:0 0 auto">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <span style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#080a0f;background:#fbbf24;border-radius:8px;padding:2px 10px">1a</span>
+      <span style="font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700;color:#8b95ad;letter-spacing:.04em">DESKTOP — MAP / BOARD / POOL STACKED</span>
+    </div>
+
+    <div style="width:1320px;background:#0d1017;border:1px solid rgba(255,255,255,.07);border-radius:30px;padding:24px;display:flex;flex-direction:column;gap:16px;color:#eef2ff;box-shadow:0 40px 80px -30px #000">
+
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:26px;line-height:1;letter-spacing:-.01em">Draft<span style="color:#fbbf24">Board</span></div>
+        <div style="width:1px;height:26px;background:rgba(255,255,255,.1)"></div>
+        <div style="display:flex;gap:5px">
+          <sc-for list="{{ a.rankChips }}" as="c" hint-placeholder-count="8">
+            <button onClick="{{ c.onClick }}" style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;padding:7px 11px;border-radius:11px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;white-space:nowrap;line-height:1.2">{{ c.l }}</button>
+          </sc-for>
+        </div>
+        <div style="flex:1"></div>
+        <div style="display:flex;align-items:center;gap:8px;background:#171c28;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:7px 12px">
+          <span style="font-size:12px;font-weight:700;color:#8b95ad;letter-spacing:.06em">PLAYER</span>
+          <input value="{{ a.tag }}" onChange="{{ a.onTag }}" placeholder="#2PQLJY8G" style="background:transparent;border:0;outline:none;color:#eef2ff;font-size:14px;font-weight:700;width:112px" />
+        </div>
+        <button onClick="{{ a.onReset }}" style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;padding:8px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#171c28;color:#8b95ad;cursor:pointer">Reset</button>
+      </div>
+
+      <div style="display:flex;gap:16px">
+        <div style="position:relative;width:186px;height:283px;border-radius:20px;overflow:hidden;background:#171c28;border:1px solid rgba(255,255,255,.08);flex:0 0 auto">
+          <sc-if value="{{ a.mapImg }}" hint-placeholder-val="{{ false }}"><img src="{{ a.mapImg }}" alt="" style="width:100%;height:100%;object-fit:cover;background:#0f131c" /></sc-if>
+          <sc-if value="{{ a.noMapImg }}"><image-slot id="map-desktop" shape="rect" placeholder="Drop map screenshot"></image-slot></sc-if>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:0">
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ a.modeChips }}" as="c" hint-placeholder-count="6">
+              <button onClick="{{ c.onClick }}" style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;padding:7px 11px;border-radius:11px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;white-space:nowrap;line-height:1.2">{{ c.l }}</button>
+            </sc-for>
+          </div>
+          <div style="position:relative">
+            <input value="{{ a.mapInput }}" onChange="{{ a.onMapQ }}" onFocus="{{ a.onMapFocus }}" onBlur="{{ a.onMapBlur }}" onKeyDown="{{ a.onMapKey }}" placeholder="Search maps…" style="width:100%;box-sizing:border-box;background:#171c28;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 18px;color:#eef2ff;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:28px;outline:none;cursor:text" />
+            <sc-if value="{{ a.mapOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;background:#12161f;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:6px;display:flex;flex-direction:column;gap:2px;box-shadow:0 26px 50px -14px #000">
+                <sc-for list="{{ a.mapResults }}" as="m" hint-placeholder-count="6">
+                  <div onMouseDown="{{ m.onClick }}" style="display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:11px;cursor:pointer" style-hover="background:#1c2231">
+                    <div style="width:30px;height:45px;border-radius:6px;overflow:hidden;background:#0f131c;flex:0 0 auto"><img src="{{ m.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover" /></div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:17px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.name }}</div>
+                      <div style="font-size:11px;font-weight:800;letter-spacing:.05em;color:#5b6478">{{ m.mode }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          <div style="flex:1;background:#12161f;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px">{{ a.phase }}</span>
+              <span style="font-size:13px;font-weight:600;color:#8b95ad">{{ a.phaseHint }}</span>
+              <div style="flex:1"></div>
+              <span style="font-size:12px;font-weight:700;color:#5b6478">{{ a.fmtLabel }}</span>
+              <sc-if value="{{ a.isSnake }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ a.onFirst }}" style="font-size:12px;font-weight:700;letter-spacing:.05em;padding:6px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:#171c28;color:#8b95ad;cursor:pointer">FIRST PICK: {{ a.firstLabel }}</button>
+              </sc-if>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center">
+              <sc-for list="{{ a.pips }}" as="p" hint-placeholder-count="10">
+                <div style="flex:1;height:30px;border-radius:9px;border:1px solid {{ p.bd }};background:{{ p.bg }};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;letter-spacing:.05em;color:{{ p.fg }}">{{ p.l }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:stretch;background:#12161f;border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:16px">
+        <sc-if value="{{ a.hasBans }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:11px;font-weight:900;letter-spacing:.08em;color:#5b6478">BANS</div>
+            <sc-for list="{{ a.blueBans }}" as="s" hint-placeholder-count="2">
+              <div onClick="{{ s.onClick }}" style="position:relative;width:60px;height:60px;border-radius:14px;background:#171c28;border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                <sc-if value="{{ s.filled }}">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;color:#6b7488;background:repeating-linear-gradient(135deg,#1c2231 0 6px,#151a26 6px 12px);overflow:hidden">
+                    <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain;filter:grayscale(1)" /></sc-if>
+                    <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                  </div>
+                  <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 46%,#ef4444 46%,#ef4444 54%,transparent 54%);opacity:.85"></div>
+                </sc-if>
+                <sc-if value="{{ s.empty }}">
+                  <div style="font-size:20px;color:#39415a;font-weight:900">×</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:8px;height:8px;border-radius:3px;background:#3b82f6"></div>
+            <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#93b8fb;letter-spacing:.02em">YOUR TEAM</div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <sc-for list="{{ a.bluePicks }}" as="s" hint-placeholder-count="3">
+              <div onClick="{{ s.onClick }}" style="position:relative;flex:1;height:158px;border-radius:18px;background:{{ s.bg }};border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+                <sc-if value="{{ s.filled }}">
+                  <div style="position:absolute;top:0;left:0;right:0;height:104px;background:repeating-linear-gradient(135deg,#1e2534 0 8px,#171d2a 8px 16px);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:34px;color:#7b869c;overflow:hidden">
+                    <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain" /></sc-if>
+                    <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                  </div>
+                  <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px 10px;text-align:center">
+                    <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:16px;line-height:1.1">{{ s.name }}</div>
+                    <div style="font-size:11px;font-weight:800;letter-spacing:.06em;color:{{ s.color }};margin-top:2px">{{ s.role }}</div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ s.empty }}">
+                  <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:28px;color:#2f374b">{{ s.num }}</div>
+                  <div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#39415a">PICK</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="width:38px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17px;color:#39415a">VS</div>
+
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
+            <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#f9a19a;letter-spacing:.02em">ENEMY TEAM</div>
+            <div style="width:8px;height:8px;border-radius:3px;background:#ef4444"></div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <sc-for list="{{ a.redPicks }}" as="s" hint-placeholder-count="3">
+              <div onClick="{{ s.onClick }}" style="position:relative;flex:1;height:158px;border-radius:18px;background:{{ s.bg }};border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+                <sc-if value="{{ s.filled }}">
+                  <div style="position:absolute;top:0;left:0;right:0;height:104px;background:repeating-linear-gradient(135deg,#1e2534 0 8px,#171d2a 8px 16px);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:34px;color:#7b869c;overflow:hidden">
+                    <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain" /></sc-if>
+                    <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                  </div>
+                  <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px 10px;text-align:center">
+                    <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:16px;line-height:1.1">{{ s.name }}</div>
+                    <div style="font-size:11px;font-weight:800;letter-spacing:.06em;color:{{ s.color }};margin-top:2px">{{ s.role }}</div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ s.empty }}">
+                  <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:28px;color:#2f374b">{{ s.num }}</div>
+                  <div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#39415a">PICK</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{ a.hasBans }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+            <div style="font-size:11px;font-weight:900;letter-spacing:.08em;color:#5b6478">BANS</div>
+            <sc-for list="{{ a.redBans }}" as="s" hint-placeholder-count="2">
+              <div onClick="{{ s.onClick }}" style="position:relative;width:60px;height:60px;border-radius:14px;background:#171c28;border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                <sc-if value="{{ s.filled }}">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;color:#6b7488;background:repeating-linear-gradient(135deg,#1c2231 0 6px,#151a26 6px 12px);overflow:hidden">
+                    <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain;filter:grayscale(1)" /></sc-if>
+                    <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                  </div>
+                  <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 46%,#ef4444 46%,#ef4444 54%,transparent 54%);opacity:.85"></div>
+                </sc-if>
+                <sc-if value="{{ s.empty }}">
+                  <div style="font-size:20px;color:#39415a;font-weight:900">×</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div style="flex:1;min-width:0;height:520px;background:#12161f;border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px;background:#0d1017;border:2px solid {{ a.searchBd }};border-radius:16px;padding:12px 16px">
+            <span style="font-size:16px;color:#5b6478">⌕</span>
+            <input value="{{ a.query }}" onChange="{{ a.onQuery }}" onKeyDown="{{ a.onKey }}" placeholder="Type a brawler name — Enter locks the top match" style="flex:1;background:transparent;border:0;outline:none;color:#eef2ff;font-size:16px;font-weight:700" />
+            <span style="font-size:12px;font-weight:700;color:#5b6478">{{ a.poolCount }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(11,1fr);grid-auto-rows:min-content;gap:8px;flex:1;min-height:0;overflow-y:auto;padding-right:6px">
+            <sc-for list="{{ a.tiles }}" as="t" hint-placeholder-count="39">
+              <div onClick="{{ t.onClick }}" style="position:relative;aspect-ratio:1;border-radius:13px;overflow:hidden;background:repeating-linear-gradient(135deg,#1c2231 0 7px,#161b27 7px 14px);border:1px solid rgba(255,255,255,.07);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center" style-hover="border-color:#fbbf24">
+                <sc-if value="{{ t.img }}" hint-placeholder-val="{{ false }}"><img src="{{ t.img }}" alt="" loading="lazy" style="position:absolute;left:6%;top:0;width:88%;height:74%;object-fit:contain" /></sc-if>
+                <sc-if value="{{ t.noImg }}"><div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:20px;color:#8b95ad">{{ t.initials }}</div></sc-if>
+                <div style="position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:10px;font-weight:800;letter-spacing:.02em;color:#8b95ad;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 3px">{{ t.name }}</div>
+                <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:{{ t.color }}"></div>
+                <sc-if value="{{ t.used }}">
+                  <div style="position:absolute;inset:0;background:{{ t.usedBg }};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;letter-spacing:.06em;color:#dfe6f5">{{ t.usedLabel }}</div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="width:326px;flex:0 0 auto;background:#12161f;border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:10px">
+          <div>
+            <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17px">{{ a.suggestTitle }}</div>
+            <div style="font-size:12px;font-weight:600;color:#8b95ad;margin-top:1px">{{ a.suggestSub }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{ a.suggestions }}" as="s" hint-placeholder-count="7">
+              <div onClick="{{ s.onClick }}" style="display:flex;align-items:center;gap:10px;background:#171c28;border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:8px 10px;cursor:pointer" style-hover="border-color:#fbbf24">
+                <div style="width:20px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:14px;color:#5b6478;text-align:center">{{ s.rank }}</div>
+                <div style="position:relative;width:38px;height:38px;border-radius:11px;overflow:hidden;background:repeating-linear-gradient(135deg,#1e2534 0 6px,#181e2b 6px 12px);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:14px;color:#8b95ad;flex:0 0 auto"><sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain" /></sc-if><sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if><div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:{{ s.color }}"></div></div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.name }}</div>
+                  <div style="height:4px;border-radius:3px;background:#232a3b;margin-top:5px;overflow:hidden"><div style="height:100%;width:{{ s.bar }};background:{{ s.color }};border-radius:3px"></div></div>
+                </div>
+                <sc-if value="{{ a.showScores }}" hint-placeholder-val="{{ true }}">
+                  <div style="text-align:right;flex:0 0 auto">
+                    <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#fbbf24">{{ s.score }}</div>
+                    <div style="font-size:9px;font-weight:800;letter-spacing:.05em;color:#5b6478">{{ s.roleShort }}</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:4px;font-size:11px;font-weight:600;color:#4f596e;line-height:1.45;border-top:1px solid rgba(255,255,255,.06);padding-top:10px">Demo scoring. Swap in your model at <span style="color:#8b95ad;font-family:ui-monospace,monospace">scoreBrawler()</span> and your account data at <span style="color:#8b95ad;font-family:ui-monospace,monospace">loadPlayer()</span>. Portraits &amp; map renders from <a href="https://brawlapi.com" target="_blank" rel="noreferrer">BrawlAPI</a> — fan project, not affiliated with Supercell.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="1b" style="flex:0 0 auto">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <span style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#080a0f;background:#fbbf24;border-radius:8px;padding:2px 10px">1b</span>
+      <span style="font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700;color:#8b95ad;letter-spacing:.04em">PHONE — SECOND-SCREEN COMPANION</span>
+    </div>
+    <div style="width:412px;background:#0d1017;border:1px solid rgba(255,255,255,.07);border-radius:34px;padding:16px;display:flex;flex-direction:column;gap:12px;color:#eef2ff;box-shadow:0 40px 80px -30px #000">
+
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px;line-height:1">Draft<span style="color:#fbbf24">Board</span></div>
+        <div style="flex:1"></div>
+        <input value="{{ b.tag }}" onChange="{{ b.onTag }}" placeholder="#TAG" style="background:#171c28;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:6px 10px;color:#eef2ff;font-size:12px;font-weight:700;width:78px;outline:none" />
+        <button onClick="{{ b.onReset }}" style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;padding:6px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#171c28;color:#8b95ad;cursor:pointer">Reset</button>
+      </div>
+
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        <sc-for list="{{ b.rankChips }}" as="c" hint-placeholder-count="8">
+          <button onClick="{{ c.onClick }}" style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:12px;padding:6px 11px;border-radius:10px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;white-space:nowrap;flex:0 0 auto">{{ c.l }}</button>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:stretch">
+        <div style="position:relative;width:124px;height:189px;flex:0 0 auto;border-radius:16px;overflow:hidden;background:#171c28;border:1px solid rgba(255,255,255,.08)">
+          <sc-if value="{{ b.mapImg }}" hint-placeholder-val="{{ false }}"><img src="{{ b.mapImg }}" alt="" style="width:100%;height:100%;object-fit:cover;background:#0f131c" /></sc-if>
+          <sc-if value="{{ b.noMapImg }}"><image-slot id="map-phone" shape="rect" placeholder="Drop map"></image-slot></sc-if>
+        </div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:10px;font-weight:900;letter-spacing:.1em;color:#fbbf24">{{ b.modeLabel }}</div>
+          <div style="position:relative">
+            <input value="{{ b.mapInput }}" onChange="{{ b.onMapQ }}" onFocus="{{ b.onMapFocus }}" onBlur="{{ b.onMapBlur }}" onKeyDown="{{ b.onMapKey }}" placeholder="Search maps…" style="width:100%;box-sizing:border-box;background:#171c28;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:9px 11px;color:#eef2ff;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17px;outline:none" />
+            <sc-if value="{{ b.mapOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:calc(100% + 5px);left:0;right:0;z-index:30;background:#12161f;border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:5px;display:flex;flex-direction:column;gap:2px;box-shadow:0 22px 44px -14px #000">
+                <sc-for list="{{ b.mapResults }}" as="m" hint-placeholder-count="6">
+                  <div onMouseDown="{{ m.onClick }}" style="display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:9px;cursor:pointer" style-hover="background:#1c2231">
+                    <div style="width:22px;height:33px;border-radius:5px;overflow:hidden;background:#0f131c;flex:0 0 auto"><img src="{{ m.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover" /></div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.name }}</div>
+                      <div style="font-size:10px;font-weight:800;letter-spacing:.05em;color:#5b6478">{{ m.mode }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+        <sc-for list="{{ b.modeChips }}" as="c" hint-placeholder-count="6">
+          <button onClick="{{ c.onClick }}" style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:11px;padding:5px 9px;border-radius:9px;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};cursor:pointer;white-space:nowrap;flex:0 0 auto">{{ c.l }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#12161f;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px">{{ b.phase }}</span>
+          <span style="font-size:11px;font-weight:600;color:#8b95ad">{{ b.phaseHint }}</span>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:#5b6478;margin-top:-4px">{{ b.fmtLabel }}</div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <sc-if value="{{ b.hasBans }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <sc-for list="{{ b.blueBans }}" as="s" hint-placeholder-count="2">
+                <div onClick="{{ s.onClick }}" style="position:relative;width:34px;height:34px;border-radius:10px;background:#171c28;border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                  <sc-if value="{{ s.filled }}">
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:12px;color:#6b7488;background:repeating-linear-gradient(135deg,#1c2231 0 5px,#151a26 5px 10px);overflow:hidden">
+                      <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain;filter:grayscale(1)" /></sc-if>
+                      <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                    </div>
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,#ef4444 45%,#ef4444 55%,transparent 55%);opacity:.85"></div>
+                  </sc-if>
+                  <sc-if value="{{ s.empty }}"><div style="font-size:13px;color:#39415a;font-weight:900">×</div></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px;min-width:0">
+            <div style="font-size:10px;font-weight:900;letter-spacing:.08em;color:#93b8fb">YOUR TEAM</div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ b.bluePicks }}" as="s" hint-placeholder-count="3">
+                <div onClick="{{ s.onClick }}" style="position:relative;flex:1;height:74px;border-radius:13px;background:{{ s.bg }};border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                  <sc-if value="{{ s.filled }}">
+                    <div style="position:absolute;top:0;left:0;right:0;height:46px;background:repeating-linear-gradient(135deg,#1e2534 0 6px,#171d2a 6px 12px);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;color:#7b869c;overflow:hidden">
+                      <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain" /></sc-if>
+                      <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                    </div>
+                    <div style="position:absolute;bottom:3px;left:0;right:0;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 3px">{{ s.name }}</div>
+                  </sc-if>
+                  <sc-if value="{{ s.empty }}"><div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17px;color:#2f374b">{{ s.num }}</div></sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-size:10px;font-weight:900;letter-spacing:.08em;color:#f9a19a;margin-top:3px">ENEMY</div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ b.redPicks }}" as="s" hint-placeholder-count="3">
+                <div onClick="{{ s.onClick }}" style="position:relative;flex:1;height:74px;border-radius:13px;background:{{ s.bg }};border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                  <sc-if value="{{ s.filled }}">
+                    <div style="position:absolute;top:0;left:0;right:0;height:46px;background:repeating-linear-gradient(135deg,#1e2534 0 6px,#171d2a 6px 12px);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;color:#7b869c;overflow:hidden">
+                      <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain" /></sc-if>
+                      <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                    </div>
+                    <div style="position:absolute;bottom:3px;left:0;right:0;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 3px">{{ s.name }}</div>
+                  </sc-if>
+                  <sc-if value="{{ s.empty }}"><div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17px;color:#2f374b">{{ s.num }}</div></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ b.hasBans }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <sc-for list="{{ b.redBans }}" as="s" hint-placeholder-count="2">
+                <div onClick="{{ s.onClick }}" style="position:relative;width:34px;height:34px;border-radius:10px;background:#171c28;border:2px solid {{ s.bd }};overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                  <sc-if value="{{ s.filled }}">
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:12px;color:#6b7488;background:repeating-linear-gradient(135deg,#1c2231 0 5px,#151a26 5px 10px);overflow:hidden">
+                      <sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:contain;filter:grayscale(1)" /></sc-if>
+                      <sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if>
+                    </div>
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,#ef4444 45%,#ef4444 55%,transparent 55%);opacity:.85"></div>
+                  </sc-if>
+                  <sc-if value="{{ s.empty }}"><div style="font-size:13px;color:#39415a;font-weight:900">×</div></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;background:#0d1017;border:2px solid {{ b.searchBd }};border-radius:14px;padding:10px 13px">
+        <span style="font-size:14px;color:#5b6478">⌕</span>
+        <input value="{{ b.query }}" onChange="{{ b.onQuery }}" onKeyDown="{{ b.onKey }}" placeholder="Type a brawler…" style="flex:1;background:transparent;border:0;outline:none;color:#eef2ff;font-size:15px;font-weight:700;min-width:0" />
+        <span style="font-size:11px;font-weight:700;color:#5b6478">{{ b.poolCount }}</span>
+      </div>
+
+      <div style="display:flex;gap:6px">
+        <button onClick="{{ b.onTabPool }}" style="flex:1;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;padding:8px;border-radius:11px;border:1px solid {{ b.tabPoolBd }};background:{{ b.tabPoolBg }};color:{{ b.tabPoolFg }};cursor:pointer">All brawlers</button>
+        <button onClick="{{ b.onTabSug }}" style="flex:1;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:13px;padding:8px;border-radius:11px;border:1px solid {{ b.tabSugBd }};background:{{ b.tabSugBg }};color:{{ b.tabSugFg }};cursor:pointer">{{ b.suggestTab }}</button>
+      </div>
+
+      <sc-if value="{{ b.poolTab }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-height:246px;overflow-y:auto;padding-right:4px">
+          <sc-for list="{{ b.tiles }}" as="t" hint-placeholder-count="24">
+            <div onClick="{{ t.onClick }}" style="position:relative;aspect-ratio:1;border-radius:11px;overflow:hidden;background:repeating-linear-gradient(135deg,#1c2231 0 7px,#161b27 7px 14px);border:1px solid rgba(255,255,255,.07);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <sc-if value="{{ t.img }}" hint-placeholder-val="{{ false }}"><img src="{{ t.img }}" alt="" loading="lazy" style="position:absolute;left:6%;top:0;width:88%;height:74%;object-fit:contain" /></sc-if>
+              <sc-if value="{{ t.noImg }}"><div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#8b95ad">{{ t.initials }}</div></sc-if>
+              <div style="position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:8px;font-weight:800;color:#8b95ad;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px">{{ t.name }}</div>
+              <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:{{ t.color }}"></div>
+              <sc-if value="{{ t.used }}">
+                <div style="position:absolute;inset:0;background:{{ t.usedBg }};display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#dfe6f5">{{ t.usedLabel }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ b.sugTab }}">
+        <div style="display:flex;flex-direction:column;gap:6px;max-height:246px;overflow-y:auto;padding-right:4px">
+          <sc-for list="{{ b.suggestions }}" as="s" hint-placeholder-count="7">
+            <div onClick="{{ s.onClick }}" style="display:flex;align-items:center;gap:9px;background:#171c28;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:7px 9px;cursor:pointer">
+              <div style="width:16px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:13px;color:#5b6478;text-align:center">{{ s.rank }}</div>
+              <div style="position:relative;width:34px;height:34px;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(135deg,#1e2534 0 6px,#181e2b 6px 12px);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:13px;color:#8b95ad;flex:0 0 auto"><sc-if value="{{ s.img }}" hint-placeholder-val="{{ false }}"><img src="{{ s.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain" /></sc-if><sc-if value="{{ s.noImg }}"><span>{{ s.initials }}</span></sc-if><div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:{{ s.color }}"></div></div>
+              <div style="flex:1;min-width:0">
+                <div style="font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.name }}</div>
+                <div style="height:4px;border-radius:3px;background:#232a3b;margin-top:4px;overflow:hidden"><div style="height:100%;width:{{ s.bar }};background:{{ s.color }};border-radius:3px"></div></div>
+              </div>
+              <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:14px;color:#fbbf24">{{ s.score }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#fbbf24&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#fbbf24&quot;,&quot;#38e07b&quot;,&quot;#22d3ee&quot;,&quot;#f472b6&quot;],&quot;section&quot;:&quot;Look&quot;},&quot;showScores&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Suggestions&quot;}}">
+class Component extends DCLogic {
+  ROLES = {
+    dmg:  { n: 'DAMAGE',     c: '#ff7a45' },
+    tank: { n: 'TANK',       c: '#ffc53d' },
+    mark: { n: 'MARKSMAN',   c: '#36cfc9' },
+    arty: { n: 'ARTILLERY',  c: '#9254de' },
+    ctrl: { n: 'CONTROLLER', c: '#4096ff' },
+    assn: { n: 'ASSASSIN',   c: '#ff4d94' },
+    supp: { n: 'SUPPORT',    c: '#52c41a' }
+  };
+  RANKS = [
+    { id: 'bronze',    l: 'Bronze',    b: 0, f: 'blind' },
+    { id: 'silver',    l: 'Silver',    b: 0, f: 'blind' },
+    { id: 'gold',      l: 'Gold',      b: 0, f: 'blind' },
+    { id: 'diamond',   l: 'Diamond',   b: 3, f: 'sim' },
+    { id: 'mythic',    l: 'Mythic',    b: 3, f: 'snake' },
+    { id: 'legendary', l: 'Legendary', b: 3, f: 'snake' },
+    { id: 'masters',   l: 'Masters',   b: 3, f: 'snake' },
+    { id: 'pro',       l: 'Pro',       b: 3, f: 'snake' }
+  ];
+  FMT = { blind: 'blind pick — both teams lock without seeing each other', sim: 'simultaneous picks', snake: '1-2-2-1 snake draft · Best-of-3' };
+  MODES = [
+    { id: 'gem',   l: 'Gem Grab',  fit: ['ctrl', 'supp', 'tank'] },
+    { id: 'ball',  l: 'Brawl Ball', fit: ['tank', 'assn', 'dmg'] },
+    { id: 'heist', l: 'Heist',     fit: ['dmg', 'assn', 'tank'] },
+    { id: 'ko',    l: 'Knockout',  fit: ['mark', 'ctrl', 'dmg'] },
+    { id: 'bounty',l: 'Bounty',    fit: ['mark', 'ctrl', 'assn'] },
+    { id: 'zone',  l: 'Hot Zone',  fit: ['ctrl', 'supp', 'arty'] }
+  ];
+  RAW = "Shelly|dmg;Nita|dmg;Colt|dmg;Bull|tank;Brock|mark;El Primo|tank;Barley|arty;Poco|supp;Rosa|tank;Jessie|dmg;Dynamike|arty;Tick|arty;8-Bit|dmg;Rico|dmg;Darryl|tank;Penny|arty;Carl|dmg;Jacky|tank;Gus|supp;Bo|ctrl;Emz|ctrl;Stu|assn;Piper|mark;Pam|supp;Frank|tank;Bibi|tank;Bea|mark;Nani|mark;Edgar|assn;Griff|dmg;Grom|arty;Bonnie|dmg;Gale|ctrl;Colette|dmg;Belle|mark;Ash|tank;Lola|dmg;Sam|tank;Mandy|mark;Maisie|dmg;Hank|tank;Pearl|dmg;Larry & Lawrie|dmg;Mico|assn;Kit|supp;Mortis|assn;Tara|ctrl;Gene|supp;Max|supp;Mr. P|ctrl;Sprout|arty;Byron|supp;Squeak|arty;Lou|ctrl;Ruffs|supp;Buzz|assn;Fang|assn;Eve|ctrl;Janet|dmg;Otis|ctrl;Buster|tank;Gray|supp;R-T|dmg;Willow|ctrl;Doug|supp;Chuck|ctrl;Charlie|ctrl;Cordelius|assn;Angelo|mark;Melodie|assn;Lily|assn;Draco|assn;Berry|supp;Clancy|dmg;Moe|dmg;Kenji|assn;Shade|assn;Juju|dmg;Meeple|dmg;Ollie|tank;Lumi|dmg;Jae-Yong|tank;Kaze|assn;Alli|tank;Finx|ctrl;Spike|dmg;Crow|assn;Leon|assn;Sandy|ctrl;Amber|dmg;Meg|tank;Surge|dmg;Chester|dmg";
+
+  mk(mode, map) {
+    return { rank: 'mythic', mode: mode, map: map, firstPick: 'blue', tag: '',
+      bans: { blue: [null, null, null], red: [null, null, null] },
+      picks: { blue: [null, null, null], red: [null, null, null] },
+      active: null, query: '', tab: 'pool', mapQ: '', mapOpen: false };
+  }
+  CLASSMAP = { 'Damage Dealer': 'dmg', Tank: 'tank', Marksman: 'mark', Artillery: 'arty', Controller: 'ctrl', Assassin: 'assn', Support: 'supp' };
+  state = { a: this.mk('gem', 'Hard Rock Mine'), b: this.mk('ball', 'Backyard Bowl'), api: { b: null, m: null } };
+
+  componentDidMount() {
+    const j = u => fetch(u).then(r => r.json()).catch(() => null);
+    Promise.all([j('https://api.brawlapi.com/v1/brawlers'), j('https://api.brawlapi.com/v1/maps')]).then(res => {
+      this._roster = null; this._maps = {}; this._all = null;
+      this.setState({ api: { b: res[0] && res[0].list, m: res[1] && res[1].list } });
+    });
+  }
+
+  get fallbackRoles() {
+    if (!this._fb) { this._fb = {}; this.RAW.split(';').forEach(s => { const p = s.split('|'); this._fb[p[0]] = p[1]; }); }
+    return this._fb;
+  }
+  get roster() {
+    if (this._roster) return this._roster;
+    const api = this.state.api.b;
+    this._roster = api
+      ? api.filter(b => b.released).map(b => ({
+          n: b.name, i: this.init(b.name), img: b.imageUrl2,
+          r: this.CLASSMAP[b.class && b.class.name] || this.fallbackRoles[b.name] || 'dmg'
+        })).sort((x, y) => x.n.localeCompare(y.n))
+      : this.RAW.split(';').map(s => { const p = s.split('|'); return { n: p[0], r: p[1], i: this.init(p[0]), img: '' }; });
+    return this._roster;
+  }
+  get allMaps() {
+    if (this._all) return this._all;
+    const names = this.MODES.map(m => m.l);
+    this._all = (this.state.api.m || [])
+      .filter(m => !m.disabled && m.gameMode && names.indexOf(m.gameMode.name) >= 0)
+      .sort((a, b) => (b.lastActive || 0) - (a.lastActive || 0) || a.name.localeCompare(b.name));
+    return this._all;
+  }
+  mapsFor(label) {
+    if (!this._maps) this._maps = {};
+    if (!this._maps[label]) this._maps[label] = this.allMaps.filter(m => m.gameMode.name === label);
+    return this._maps[label];
+  }
+  pickMap(k, m) {
+    const mo = this.MODES.find(x => x.l === m.gameMode.name);
+    this.upd(k, { map: m.name, mode: mo ? mo.id : this.state[k].mode, mapOpen: false, mapQ: '' });
+  }
+  init(name) {
+    const w = name.replace(/[.&]/g, '').split(/[\s-]+/).filter(Boolean);
+    return (w.length > 1 ? w[0][0] + w[w.length - 1][0] : name.slice(0, 2)).toUpperCase();
+  }
+  byName(n) { return this.roster.find(b => b.n === n); }
+
+  /* ---- swap these two for the real thing ---- */
+  loadPlayer(tag) { /* TODO: fetch owned brawlers + personal win rates for `tag` */ return null; }
+  scoreBrawler(b, d, mode, isBan) {
+    const s = b.n + '|' + d.map + '|' + d.mode + (isBan ? '|x' : '');
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 33 + s.charCodeAt(i)) % 100003;
+    let v = 41 + (h % 40) + (mode.fit.includes(b.r) ? 9 : 0);
+    if (isBan) v = 40 + (h % 45) + (mode.fit.includes(b.r) ? 12 : 0);
+    return Math.round(Math.min(v, 96) * 10) / 10;
+  }
+  /* ------------------------------------------- */
+
+  upd(k, patch) { this.setState(s => ({ [k]: Object.assign({}, s[k], patch) })); }
+  rankOf(d) { return this.RANKS.find(r => r.id === d.rank); }
+  bansOf(d) { return this.rankOf(d).b; }
+  seq(d) {
+    const fmt = this.rankOf(d).f;
+    const f = fmt === 'snake' ? d.firstPick : 'blue', s = f === 'blue' ? 'red' : 'blue', out = [];
+    for (let i = 0; i < this.bansOf(d); i++) { out.push({ team: f, type: 'ban', i }); out.push({ team: s, type: 'ban', i }); }
+    const order = fmt === 'snake'
+      ? [[f, 0], [s, 0], [s, 1], [f, 1], [f, 2], [s, 2]]
+      : [[f, 0], [f, 1], [f, 2], [s, 0], [s, 1], [s, 2]];
+    order.forEach(p => out.push({ team: p[0], type: 'pick', i: p[1] }));
+    return out;
+  }
+  val(d, sl) { return (sl.type === 'ban' ? d.bans : d.picks)[sl.team][sl.i]; }
+  activeSlot(d) {
+    if (d.active) return d.active;
+    return this.seq(d).find(sl => !this.val(d, sl)) || null;
+  }
+  set(d, sl, v) {
+    const nd = Object.assign({}, d, {
+      bans: { blue: d.bans.blue.slice(), red: d.bans.red.slice() },
+      picks: { blue: d.picks.blue.slice(), red: d.picks.red.slice() }
+    });
+    (sl.type === 'ban' ? nd.bans : nd.picks)[sl.team][sl.i] = v;
+    return nd;
+  }
+  assign(k, name) {
+    const d = this.state[k], sl = this.activeSlot(d);
+    if (!sl) return;
+    const nd = this.set(d, sl, name);
+    nd.active = null; nd.query = '';
+    this.setState({ [k]: nd });
+  }
+  slotClick(k, sl) {
+    const d = this.state[k];
+    if (this.val(d, sl)) { const nd = this.set(d, sl, null); nd.active = sl; this.setState({ [k]: nd }); }
+    else this.upd(k, { active: sl });
+  }
+  removeName(k, name) {
+    const d = this.state[k];
+    const hit = this.seq(d).find(sl => this.val(d, sl) === name);
+    if (hit) { const nd = this.set(d, hit, null); nd.active = hit; this.setState({ [k]: nd }); }
+  }
+  fz(q, name) {
+    const n = name.toLowerCase(), Q = q.toLowerCase().replace(/\s+/g, '');
+    if (!Q) return 0;
+    if (n.startsWith(Q)) return 100;
+    if (n.replace(/[^a-z0-9]/g, '').indexOf(Q) >= 0) return 60;
+    let i = 0;
+    for (const c of n) { if (c === Q[i]) i++; if (i === Q.length) return 25; }
+    return -1;
+  }
+
+  chip(active, on) {
+    const acc = this.props.accent || '#fbbf24';
+    return { bg: active ? acc : '#171c28', fg: active ? '#0d1017' : '#8b95ad', bd: active ? acc : 'rgba(255,255,255,.09)', onClick: on };
+  }
+
+  vm(k) {
+    const d = this.state[k], acc = this.props.accent || '#fbbf24';
+    const mode = this.MODES.find(m => m.id === d.mode);
+    const maps = this.mapsFor(mode.l);
+    const cur = maps.find(m => m.name === d.map) || maps[0] || null;
+    const curName = cur ? cur.name : d.map, curImg = cur ? cur.imageUrl : '';
+    const mq = d.mapQ;
+    const mapRes = (mq ? this.allMaps : maps).map(m => ({ m, s: this.fz(mq, m.name) }))
+      .filter(x => x.s >= 0)
+      .sort((x, y) => mq ? (y.s - x.s || (y.m.lastActive || 0) - (x.m.lastActive || 0)) : 0)
+      .slice(0, 8)
+      .map(x => ({ key: x.m.id, m: x.m, name: x.m.name, img: x.m.imageUrl, mode: x.m.gameMode.name, onClick: () => this.pickMap(k, x.m) }));
+    const nb = this.bansOf(d), seq = this.seq(d), active = this.activeSlot(d);
+    const used = {};
+    seq.forEach(sl => { const v = this.val(d, sl); if (v) used[v] = sl; });
+
+    const isAct = sl => !!active && active.team === sl.team && active.type === sl.type && active.i === sl.i;
+    const mkSlot = (team, type, i) => {
+      const sl = { team, type, i }, v = this.val(d, sl), br = v ? this.byName(v) : null, on = isAct(sl);
+      return {
+        key: team + type + i, name: v || '', initials: br ? br.i : '', role: br ? this.ROLES[br.r].n : '',
+        color: br ? this.ROLES[br.r].c : '#39415a', filled: !!v, empty: !v, num: i + 1,
+        img: br && br.img ? br.img : '', noImg: !(br && br.img),
+        bd: on ? acc : (v ? (team === 'blue' ? '#2b4d86' : '#7a2f2f') : 'rgba(255,255,255,.08)'),
+        bg: v ? (team === 'blue' ? '#141d2e' : '#221419') : '#12161f',
+        onClick: () => this.slotClick(k, sl)
+      };
+    };
+    const list = (team, type, n) => Array.from({ length: n }, (_, i) => mkSlot(team, type, i));
+
+    const q = d.query;
+    const tiles = this.roster.map(b => ({ b, s: this.fz(q, b.n) })).filter(x => x.s >= 0)
+      .sort((x, y) => q ? (y.s - x.s || x.b.n.localeCompare(y.b.n)) : x.b.n.localeCompare(y.b.n))
+      .map(x => {
+        const u = used[x.b.n];
+        return {
+          key: x.b.n, name: x.b.n, initials: x.b.i, color: this.ROLES[x.b.r].c, used: !!u,
+          img: x.b.img || '', noImg: !x.b.img,
+          usedBg: u ? (u.type === 'ban' ? 'rgba(120,20,20,.86)' : (u.team === 'blue' ? 'rgba(20,50,110,.86)' : 'rgba(110,25,25,.86)')) : 'transparent',
+          usedLabel: u ? (u.type === 'ban' ? 'BANNED' : (u.team === 'blue' ? 'PICKED' : 'ENEMY')) : '',
+          onClick: () => u ? this.removeName(k, x.b.n) : this.assign(k, x.b.n)
+        };
+      });
+
+    const isBan = !!active && active.type === 'ban';
+    const sug = this.roster.filter(b => !used[b.n])
+      .map(b => ({ b, v: this.scoreBrawler(b, d, mode, isBan) }))
+      .sort((x, y) => y.v - x.v).slice(0, 7)
+      .map((x, idx) => ({
+        key: x.b.n, rank: idx + 1, name: x.b.n, initials: x.b.i, color: this.ROLES[x.b.r].c,
+        img: x.b.img || '', noImg: !x.b.img,
+        score: x.v.toFixed(1), roleShort: this.ROLES[x.b.r].n.slice(0, 4),
+        bar: Math.max(6, Math.round((x.v - 35) / 61 * 100)) + '%',
+        onClick: () => this.assign(k, x.b.n)
+      }));
+
+    const teamWord = t => t === 'blue' ? 'Your team' : 'Enemy';
+    const phase = active
+      ? (active.type === 'ban' ? teamWord(active.team) + ' ban ' + (active.i + 1) : teamWord(active.team) + ' pick ' + (active.i + 1))
+      : 'Draft complete';
+    const done = seq.filter(sl => this.val(d, sl)).length;
+
+    return {
+      rankChips: this.RANKS.map(r => Object.assign({ key: r.id, l: r.l }, this.chip(r.id === d.rank, () => this.upd(k, { rank: r.id, active: null })))),
+      fmtLabel: (nb ? nb + ' bans each · ' : 'No bans · ') + this.FMT[this.rankOf(d).f],
+      isSnake: this.rankOf(d).f === 'snake',
+      modeChips: this.MODES.map(m => Object.assign({ key: m.id, l: m.l }, this.chip(m.id === d.mode, () => this.upd(k, { mode: m.id })))),
+      modeLabel: mode.l.toUpperCase(), map: curName, tag: d.tag,
+      mapImg: curImg, noMapImg: !curImg,
+      mapInput: d.mapOpen ? d.mapQ : curName, mapOpen: d.mapOpen, mapResults: mapRes,
+      onMapQ: e => this.upd(k, { mapQ: e.target.value }),
+      onMapFocus: () => this.upd(k, { mapOpen: true, mapQ: '' }),
+      onMapBlur: () => setTimeout(() => this.upd(k, { mapOpen: false }), 160),
+      onMapKey: e => {
+        if (e.key === 'Enter' && mapRes.length) { e.target.blur(); this.pickMap(k, mapRes[0].m); }
+        if (e.key === 'Escape') e.target.blur();
+      },
+      onTag: e => { this.upd(k, { tag: e.target.value }); this.loadPlayer(e.target.value); },
+      onReset: () => this.setState({ [k]: this.mk(d.mode, d.map) }),
+      onFirst: () => this.upd(k, { firstPick: d.firstPick === 'blue' ? 'red' : 'blue', active: null }),
+      firstLabel: d.firstPick === 'blue' ? 'YOU' : 'ENEMY',
+      hasBans: nb > 0,
+      blueBans: list('blue', 'ban', nb), redBans: list('red', 'ban', nb),
+      bluePicks: list('blue', 'pick', 3), redPicks: list('red', 'pick', 3),
+      pips: seq.map((sl, idx) => {
+        const on = isAct(sl), filled = !!this.val(d, sl);
+        const base = sl.team === 'blue' ? '#3b82f6' : '#ef4444';
+        return {
+          key: idx, l: (sl.type === 'ban' ? 'B' : 'P') + (sl.i + 1),
+          bg: on ? acc : (filled ? (sl.team === 'blue' ? '#16233a' : '#2a1618') : '#12161f'),
+          fg: on ? '#0d1017' : (filled ? base : '#4f596e'),
+          bd: on ? acc : (filled ? base : 'rgba(255,255,255,.07)')
+        };
+      }),
+      phase, phaseHint: done + ' of ' + seq.length + ' slots filled',
+      query: d.query, onQuery: e => this.upd(k, { query: e.target.value }),
+      onKey: e => {
+        if (e.key === 'Enter' && tiles.length) { const t = tiles.find(x => !x.used) || tiles[0]; if (!t.used) this.assign(k, t.name); }
+        if (e.key === 'Escape') this.upd(k, { query: '' });
+      },
+      searchBd: d.query ? acc : 'rgba(255,255,255,.08)',
+      poolCount: tiles.length + '/' + this.roster.length,
+      tiles,
+      suggestions: sug, showScores: this.props.showScores !== false,
+      suggestTitle: isBan ? 'Ban priority' : 'Suggested picks',
+      suggestSub: isBan ? 'Biggest threats on ' + d.map : 'Best fit for ' + mode.l + ' · ' + d.map,
+      suggestTab: isBan ? 'Ban list' : 'Suggested',
+      poolTab: d.tab === 'pool', sugTab: d.tab === 'sug',
+      onTabPool: () => this.upd(k, { tab: 'pool' }), onTabSug: () => this.upd(k, { tab: 'sug' }),
+      tabPoolBg: d.tab === 'pool' ? acc : '#171c28', tabPoolFg: d.tab === 'pool' ? '#0d1017' : '#8b95ad', tabPoolBd: d.tab === 'pool' ? acc : 'rgba(255,255,255,.09)',
+      tabSugBg: d.tab === 'sug' ? acc : '#171c28', tabSugFg: d.tab === 'sug' ? '#0d1017' : '#8b95ad', tabSugBd: d.tab === 'sug' ? acc : 'rgba(255,255,255,.09)'
+    };
+  }
+
+  renderVals() { return { a: this.vm('a'), b: this.vm('b') }; }
+}
+
+</script>
+</body>
+</html>
