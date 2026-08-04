@@ -20,20 +20,38 @@
   ::-webkit-scrollbar { width:10px; height:10px; }
   ::-webkit-scrollbar-thumb { background:#2a3244; border-radius:8px; }
   ::-webkit-scrollbar-track { background:transparent; }
+
+  /* Route the page to the layout that fits the viewport. Mobile-first: the
+     phone companion is the default, the desktop board takes over at 900px —
+     below that the desktop layout's map + board + pool + suggestions row has
+     nowhere to go. Both frames drive the same draft state, so crossing the
+     breakpoint (rotation, window resize) keeps the draft intact. */
+  /* Edge-to-edge on a phone: the companion card was drawn at 412px wide with
+     16px of its own padding, so any page padding here eats into that budget
+     and overflows the inner row widths. Padding only comes back once the
+     viewport is comfortably wider than the card. */
+  .page { padding:0; }
+  .frame-desktop, .frame-phone { margin:0 auto; }
+  .frame-desktop { max-width:1320px; display:none; }
+  .frame-phone   { max-width:412px;  display:block; }
+  .frame-desktop > .board, .frame-phone > .board { width:100%; box-sizing:border-box; }
+
+  @media (min-width:480px) { .page { padding:16px 12px; } }
+
+  @media (min-width:900px) {
+    .page { padding:32px 24px; }
+    .frame-desktop { display:block; }
+    .frame-phone   { display:none; }
+  }
 </style>
 </helmet>
 
-<section style="display:flex;gap:56px;padding:56px;align-items:flex-start;flex-wrap:wrap">
+<section class="page">
 
-  <div id="1a" style="flex:0 0 auto">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-      <span style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#080a0f;background:#fbbf24;border-radius:8px;padding:2px 10px">1a</span>
-      <span style="font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700;color:#8b95ad;letter-spacing:.04em">DESKTOP — MAP / BOARD / POOL STACKED</span>
-    </div>
+  <div id="1a" class="frame-desktop">
+    <div class="board" style="background:#0d1017;border:1px solid rgba(255,255,255,.07);border-radius:30px;padding:24px;display:flex;flex-direction:column;gap:16px;color:#eef2ff;box-shadow:0 40px 80px -30px #000">
 
-    <div style="width:1320px;background:#0d1017;border:1px solid rgba(255,255,255,.07);border-radius:30px;padding:24px;display:flex;flex-direction:column;gap:16px;color:#eef2ff;box-shadow:0 40px 80px -30px #000">
-
-      <div style="display:flex;align-items:center;gap:18px">
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
         <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:26px;line-height:1;letter-spacing:-.01em">Draft<span style="color:#fbbf24">Board</span></div>
         <div style="width:1px;height:26px;background:rgba(255,255,255,.1)"></div>
         <div style="display:flex;gap:5px">
@@ -244,12 +262,8 @@
     </div>
   </div>
 
-  <div id="1b" style="flex:0 0 auto">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-      <span style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;color:#080a0f;background:#fbbf24;border-radius:8px;padding:2px 10px">1b</span>
-      <span style="font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700;color:#8b95ad;letter-spacing:.04em">PHONE — SECOND-SCREEN COMPANION</span>
-    </div>
-    <div style="width:412px;background:#0d1017;border:1px solid rgba(255,255,255,.07);border-radius:34px;padding:16px;display:flex;flex-direction:column;gap:12px;color:#eef2ff;box-shadow:0 40px 80px -30px #000">
+  <div id="1b" class="frame-phone">
+    <div class="board" style="background:#0d1017;border:1px solid rgba(255,255,255,.07);border-radius:34px;padding:16px;display:flex;flex-direction:column;gap:12px;color:#eef2ff;box-shadow:0 40px 80px -30px #000">
 
       <div style="display:flex;align-items:center;gap:8px">
         <div style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px;line-height:1">Draft<span style="color:#fbbf24">Board</span></div>
@@ -456,7 +470,7 @@ class Component extends DCLogic {
       active: null, query: '', tab: 'pool', mapQ: '', mapOpen: false };
   }
   CLASSMAP = { 'Damage Dealer': 'dmg', Tank: 'tank', Marksman: 'mark', Artillery: 'arty', Controller: 'ctrl', Assassin: 'assn', Support: 'supp' };
-  state = { a: this.mk('gem', 'Hard Rock Mine'), b: this.mk('ball', 'Backyard Bowl'), api: { b: null, m: null } };
+  state = { a: this.mk('gem', 'Hard Rock Mine'), api: { b: null, m: null } };
 
   componentDidMount() {
     const j = u => fetch(u).then(r => r.json()).catch(() => null);
@@ -688,7 +702,9 @@ class Component extends DCLogic {
     };
   }
 
-  renderVals() { return { a: this.vm('a'), b: this.vm('b') }; }
+  /* Both frames render from one viewmodel: only one is ever visible, and sharing
+     it means the draft survives a resize across the breakpoint. */
+  renderVals() { const v = this.vm('a'); return { a: v, b: v }; }
 }
 
 </script>

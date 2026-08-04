@@ -1,0 +1,3 @@
+# Dev-only files — no reason to publish these to the CDN.
+dev-server.js
+README.md
