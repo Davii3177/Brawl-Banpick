@@ -451,3 +451,69 @@ when handed it: `lane_features.js` tested non-linear aggregates over the counter
 3. **Drop F5 from the roadmap.** Measured null in the only population where it is observable.
 4. **The esports corpus is a validation set, not training data.** It is the only external
    check we have on a model otherwise fitted and tested on one crawl of one patch segment.
+
+---
+
+# 10. Is there enough data for the ban engine? (2026-08-06)
+
+Ship/no-ship gate for `BanValue(x|map) = P(pick x|map) x Threat(x|map)`. Bans are chosen on an
+**empty board**, so Threat cannot use counter or synergy — it reduces to map-conditional solo
+strength, the best-estimated block we have. Tool: `phase3/harness/ban_power.js`.
+
+Corpus at test time: **292,007 soloRanked 3v3 over 30 maps**, 27 of them at 10-20k matches
+(median 10,835). Pick-share SE at a 1.5% true share and 11k matches is **0.05pp (3.3% relative)**.
+
+## 10.1 Reliability, measured by split-half
+
+Two disjoint halves (146k each), each fitted independently end to end, then compared:
+
+| metric | value |
+|---|---|
+| top-3 set overlap | 75% |
+| top-5 | 81% |
+| top-10 | 82% |
+| **share of achievable ban value captured** | **93.8%** |
+
+Set overlap is the wrong yardstick — it penalises swapping two near-tied bans as hard as
+missing the best one. Scored decision-theoretically (use one half's list, evaluate with the
+other half's values):
+
+| ban list | value captured |
+|---|---|
+| map-specific, fitted on independent data | **93.8%** |
+| one global list, ignoring the map | 27.4% |
+| three random brawlers | 6.7% |
+
+**The engine is data-sufficient**, and per-map conditioning is not optional — it is worth
+3.4x a global list.
+
+## 10.2 Would more data help? Yes, slowly
+
+| matches per half | top-3 | top-5 |
+|---|---|---|
+| 36,568 | 63% | 69% |
+| 73,136 | 70% | 77% |
+| 146,272 | 75% | 81% |
+
+Roughly **+5-6pp of top-3 agreement per doubling**, still climbing. Reaching ~85% would take
+2-3 further doublings, i.e. ~1.2-2.3M matches. At the observed accrual of ~11k/day that is
+**110-210 days** — far longer than a balance patch survives.
+
+**The binding constraint on the ban list is patch shelf-life, not sample size.** Crawling
+harder cannot outrun it. Note also that both halves use 146k while the shipped model uses all
+292k, so real reliability is better than the table shows.
+
+## 10.3 Per-tier ban lists: Masters only
+
+T13 showed brawler strength differs by tier (cross-tier r = 0.411-0.700). Splitting the ban
+list by tier costs volume:
+
+| tier | tiered matches | per map | verdict |
+|---|---|---|---|
+| Masters | ~148k | ~4,900 | **feasible** — matches the split-half arm exactly |
+| Legendary | ~47k | ~1,550 | marginal (~65% top-3) |
+| Mythic | ~6.7k | ~225 | **too thin — must pool** |
+| Diamond | ~500 | ~17 | unusable |
+
+Ship a Masters-specific ban list; pool everything below it toward the global map prior with
+tier offsets shrunk by volume.
