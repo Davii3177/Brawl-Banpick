@@ -1,0 +1,37 @@
+scenario,test,family,df,varPerMatch,skew,percentile,delta,nNeeded,m50,m80,m95
+transfer_pair,joint,"F0",106,0.101845,,,,,1525,2189,2878
+transfer_pair,joint,"F2-unpooled",5671,0.029967,,,,,34545,47167,59440
+transfer_pair,joint,"F3-unpooled",5671,0.03596,,,,,28788,39306,49534
+transfer_pair,joint,"F8-k8",920,0.039556,,,,,10777,14919,19036
+transfer_pair,joint,"F8-k16",1968,0.049445,,,,,12463,17130,21719
+transfer_pair,joint,"F4a",24,0.004495,,,,,18368,27483,37199
+transfer_pair,single-pair-synergy,"synergy(i,j)",,,0,median,0.1413,3637,,3469913,
+transfer_pair,single-pair-synergy,"synergy(i,j)",,,0,10th pct (tail),0.1413,3637,,3469913,
+transfer_pair,single-pair-counter,"counter(i,k)",,,0,median,0.1264,4546,,2891594,
+transfer_pair,single-pair-counter,"counter(i,k)",,,0,10th pct (tail),0.1264,4546,,2891594,
+transfer_pair,single-pair-synergy,"synergy(i,j)",,,0.8,median,0.1413,3637,,9808895,
+transfer_pair,single-pair-synergy,"synergy(i,j)",,,0.8,10th pct (tail),0.1413,3637,,24294562,
+transfer_pair,single-pair-counter,"counter(i,k)",,,0.8,median,0.1264,4546,,8174079,
+transfer_pair,single-pair-counter,"counter(i,k)",,,0.8,10th pct (tail),0.1264,4546,,20245468,
+transfer_pair,single-pair-synergy,"synergy(i,j)",,,1.154,median,0.1413,3637,,33273330,
+transfer_pair,single-pair-synergy,"synergy(i,j)",,,1.154,10th pct (tail),0.1413,3637,,123106538,
+transfer_pair,single-pair-counter,"counter(i,k)",,,1.154,median,0.1264,4546,,27727775,
+transfer_pair,single-pair-counter,"counter(i,k)",,,1.154,10th pct (tail),0.1264,4546,,102588782,
+transfer_total,joint,"F0",106,0.169742,,,,,915,1314,1727
+transfer_total,joint,"F2-unpooled",5671,0.099889,,,,,10364,14150,17832
+transfer_total,joint,"F3-unpooled",5671,0.099889,,,,,10364,14150,17832
+transfer_total,joint,"F8-k8",920,0.119867,,,,,3556,4923,6282
+transfer_total,joint,"F8-k16",1968,0.149833,,,,,4113,5653,7167
+transfer_total,joint,"F4a",24,0.014983,,,,,5510,8245,11160
+transfer_total,single-pair-synergy,"synergy(i,j)",,,0,median,0.2581,1091,,1040974,
+transfer_total,single-pair-synergy,"synergy(i,j)",,,0,10th pct (tail),0.2581,1091,,1040974,
+transfer_total,single-pair-counter,"counter(i,k)",,,0,median,0.2107,1637,,1040974,
+transfer_total,single-pair-counter,"counter(i,k)",,,0,10th pct (tail),0.2107,1637,,1040974,
+transfer_total,single-pair-synergy,"synergy(i,j)",,,0.8,median,0.2581,1091,,2942669,
+transfer_total,single-pair-synergy,"synergy(i,j)",,,0.8,10th pct (tail),0.2581,1091,,7288368,
+transfer_total,single-pair-counter,"counter(i,k)",,,0.8,median,0.2107,1637,,2942669,
+transfer_total,single-pair-counter,"counter(i,k)",,,0.8,10th pct (tail),0.2107,1637,,7288368,
+transfer_total,single-pair-synergy,"synergy(i,j)",,,1.154,median,0.2581,1091,,9981999,
+transfer_total,single-pair-synergy,"synergy(i,j)",,,1.154,10th pct (tail),0.2581,1091,,36931961,
+transfer_total,single-pair-counter,"counter(i,k)",,,1.154,median,0.2107,1637,,9981999,
+transfer_total,single-pair-counter,"counter(i,k)",,,1.154,10th pct (tail),0.2107,1637,,36931961,

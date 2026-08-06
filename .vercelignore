@@ -1,3 +1,11 @@
 # Dev-only files — no reason to publish these to the CDN.
 dev-server.js
 README.md
+research
+crawler
+data
+schema.sql
+runbook.md
+preflight.md
+findings.md
+health_report.md

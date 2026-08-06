@@ -1,0 +1,38 @@
+{
+  "generated": "2026-08-04T11:58:12.120Z",
+  "source": "api.brawlapi.com/game/csv_logic/characters",
+  "matched": 107,
+  "unmatched": [],
+  "results": [
+    {
+      "id": "c0042",
+      "desc": "Bounty-viable throwers out-range Dynamike",
+      "ok": null,
+      "detail": "UNTESTABLE: AutoAttackRange is a placeholder (${distinctRanges} distinct values roster-wide). Claim needs the projectile/weapon tables, which this endpoint does not expose. Logged in gaps.md."
+    },
+    {
+      "id": "c0030",
+      "desc": "Tanks carry materially more health than assassins",
+      "ok": true,
+      "detail": "mean hp — Tank 5292 (n=12) vs Assassin 3964 (n=14); ratio 1.34x"
+    },
+    {
+      "id": "c0023",
+      "desc": "Marksmen out-range assassins as an archetype",
+      "ok": null,
+      "detail": "UNTESTABLE: AutoAttackRange is a placeholder field. Needs projectile tables."
+    },
+    {
+      "id": "c0055",
+      "desc": "Tank/space-maker split is not visible in raw movement speed",
+      "ok": null,
+      "detail": "mean speed — Tank 766 vs roster 746. Gap-closing lives in super/gadget definitions, not base speed, so this table cannot confirm or refute the split."
+    },
+    {
+      "id": "c0084",
+      "desc": "Named pure snipers sit at the top of the range distribution",
+      "ok": null,
+      "detail": "UNTESTABLE: AutoAttackRange is a placeholder field. Needs projectile tables."
+    }
+  ]
+}

@@ -1,0 +1,3258 @@
+{
+  "_meta": {
+    "generated": "2026-08-04T11:59:16.824Z",
+    "claims": 84,
+    "accepted_sources": 4,
+    "pending_sources": 10,
+    "status": "PARTIAL — see gaps.md. Stopping criteria not met.",
+    "schema": "claims grouped by type; scope/entities per claim as in claims.jsonl"
+  },
+  "role_glossary": {
+    "_note": "Two competing competitive taxonomies are in active use. The site must pick one and state the mapping; this KB records both rather than silently merging them.",
+    "official_classes": [
+      "Marksman",
+      "Tank",
+      "Assassin",
+      "Artillery",
+      "Damage Dealer",
+      "Support",
+      "Controller"
+    ],
+    "taxonomy_a_bedlam": {
+      "roles": [
+        "sniper",
+        "tank",
+        "assassin",
+        "thrower",
+        "tank_counter",
+        "support"
+      ],
+      "drops": [
+        "controller"
+      ],
+      "maps_from_official": {
+        "sniper": "Marksman",
+        "thrower": "Artillery",
+        "tank_counter": "Damage Dealer"
+      }
+    },
+    "taxonomy_b_bobby": {
+      "roles": [
+        "thrower",
+        "space_maker",
+        "anti_tank",
+        "control",
+        "sniper",
+        "tank",
+        "support"
+      ],
+      "keeps": [
+        "control"
+      ],
+      "key_distinction": "splits tanks from space makers on gap-closing ability rather than on hitpoints"
+    },
+    "cross_taxonomy_synonyms": {
+      "tank_counter": "anti_tank",
+      "assassin": "space_maker (approximately; space_maker also absorbs mobile tanks such as Bull)",
+      "sniper": "Marksman (official)"
+    }
+  },
+  "entity_glossary": {
+    "canonical_brawlers": "brawler_aliases.json (107, from api.brawlapi.com/v1/brawlers)",
+    "dev_codenames_in_community_use": {
+      "ricochet": "Rico",
+      "mr.p": "Mr. P",
+      "lolla": "Lola",
+      "artie": "R-T",
+      "fishtank": "Hank",
+      "twins": "Larry & Lawrie",
+      "melody": "Melodie",
+      "digger": "Moe",
+      "samurai": "Kenji",
+      "lightyear": "Buzz Lightyear",
+      "jae": "Jae-Yong",
+      "dancer": "Mina",
+      "fury": "Ziggy",
+      "mender": "Glowy",
+      "shadowdemon": "Sirius",
+      "redirecter": "Najia",
+      "gladiator": "Damian",
+      "stella": "Starr Nova",
+      "katanakid": "Nori"
+    },
+    "modes": [
+      "gemGrab",
+      "brawlBall",
+      "heist",
+      "knockout",
+      "bounty",
+      "hotZone"
+    ],
+    "map_archetypes": [
+      "open",
+      "walled",
+      "bush-heavy",
+      "chokepoint",
+      "long-lane",
+      "mixed",
+      "asymmetric"
+    ]
+  },
+  "cross_checks": [
+    {
+      "id": "c0042",
+      "desc": "Bounty-viable throwers out-range Dynamike",
+      "ok": null,
+      "detail": "UNTESTABLE: AutoAttackRange is a placeholder (${distinctRanges} distinct values roster-wide). Claim needs the projectile/weapon tables, which this endpoint does not expose. Logged in gaps.md."
+    },
+    {
+      "id": "c0030",
+      "desc": "Tanks carry materially more health than assassins",
+      "ok": true,
+      "detail": "mean hp — Tank 5292 (n=12) vs Assassin 3964 (n=14); ratio 1.34x"
+    },
+    {
+      "id": "c0023",
+      "desc": "Marksmen out-range assassins as an archetype",
+      "ok": null,
+      "detail": "UNTESTABLE: AutoAttackRange is a placeholder field. Needs projectile tables."
+    },
+    {
+      "id": "c0055",
+      "desc": "Tank/space-maker split is not visible in raw movement speed",
+      "ok": null,
+      "detail": "mean speed — Tank 766 vs roster 746. Gap-closing lives in super/gadget definitions, not base speed, so this table cannot confirm or refute the split."
+    },
+    {
+      "id": "c0084",
+      "desc": "Named pure snipers sit at the top of the range distribution",
+      "ok": null,
+      "detail": "UNTESTABLE: AutoAttackRange is a placeholder field. Needs projectile tables."
+    }
+  ],
+  "claims_by_type": {
+    "mechanic": [
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "bronze",
+            "silver",
+            "gold"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_phase",
+            "blind_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0001",
+        "type": "mechanic",
+        "statement": "From Bronze I through Gold III, Ranked has no ban phase at all; each player simply locks a brawler no teammate has already taken.",
+        "mechanism": "With no bans and no visibility of the enemy selection, the draft carries no information game. Counter-picking is impossible, so brawler choice reduces to raw map/mode fit and personal mastery.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "diamond"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_phase"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0002",
+        "type": "mechanic",
+        "statement": "From Diamond I through Diamond III, every player bans one brawler, producing three bans per team and six removals from the shared pool.",
+        "mechanism": "Bans are per-player rather than per-captain, so ban quality varies with the weakest drafter on the team rather than being centralised.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "diamond",
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_phase",
+            "hidden_information"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0003",
+        "type": "mechanic",
+        "statement": "During the Ranked ban phase a player sees only their own team's bans, not the opponent's.",
+        "mechanism": "Hidden bans make the phase simultaneous rather than sequential, so a team cannot react to enemy bans. Ban targeting must be based on map/mode priors, not observed enemy intent, and two teams can waste bans on the same brawler.",
+        "verbatim_support": "players can only see the bans of their own team",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "diamond",
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_phase"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0004",
+        "type": "mechanic",
+        "statement": "Players on the same team cannot ban a brawler a teammate has already banned.",
+        "mechanism": "The client de-duplicates within a team, guaranteeing three distinct removals per side, but offers no such protection across teams.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "diamond",
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_phase",
+            "timer"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0005",
+        "type": "mechanic",
+        "statement": "A player who does not ban within roughly 22.5 seconds has a random brawler banned on their behalf.",
+        "mechanism": "The slot is never wasted, but an un-chosen ban is effectively random pool removal and forfeits the strategic value of the slot.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "series"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0006",
+        "type": "mechanic",
+        "statement": "From Mythic I upward a Ranked match is a best-of-three; the first team to win two rounds takes the match.",
+        "mechanism": "A series lets information accumulate across games, which is what makes adaptive banning and counter-drafting meaningful rather than one-shot guesses.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "first_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0007",
+        "type": "mechanic",
+        "statement": "A coin flip after matchmaking decides which team picks first.",
+        "mechanism": "First-pick seat is assigned randomly rather than earned, so both seats must be prepared for: the first-pick advantage of denying a contested brawler against the last-pick advantage of countering.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "diamond",
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "shared_pool"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0010",
+        "type": "mechanic",
+        "statement": "A brawler that has been banned or already picked by anyone cannot be selected, so the pool shrinks monotonically through the draft.",
+        "mechanism": "The pool is shared across both teams rather than per-team, so a ban denies the brawler to yourself as well. This is what makes \"ban to deny\" costly when the target is also good for you.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "loadout",
+            "star_power",
+            "gadget",
+            "gear"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0011",
+        "type": "mechanic",
+        "statement": "After all six brawlers are locked, players get roughly 17 seconds to set Star Powers, Gadgets and Gears.",
+        "mechanism": "Loadout is chosen with full knowledge of both compositions, so gadget/star-power choice is a genuine post-draft counter-play layer rather than a pre-commitment.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "brawler_swap"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0012",
+        "type": "mechanic",
+        "statement": "After drafting, two teammates may swap their drafted brawlers provided each has Power Level 11 on the brawler they receive.",
+        "mechanism": "Lets a team correct a role/mastery mismatch created by seat order — the player in the last-pick seat can draft a counter and hand it to whoever plays it better.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "series"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0013",
+        "type": "mechanic",
+        "statement": "If neither team leads after three rounds the Ranked match is recorded as a draw, with no rematch.",
+        "mechanism": "A drawn series caps the downside of a bad game-one draft, which slightly reduces the cost of an experimental opening draft relative to a sudden-death format.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "map_selection"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0014",
+        "type": "mechanic",
+        "statement": "Ranked assigns a random 3v3 mode and map per match rather than letting teams choose.",
+        "mechanism": "Because the map is known before the draft but not chosen, map-reading is a drafting skill rather than a preparation one — teams cannot steer toward a comfort map.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      }
+    ],
+    "draft_seat": [
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "pick_order",
+            "snake_draft"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0008",
+        "type": "draft_seat",
+        "statement": "The Ranked pick order is a 1-2-2-1 snake: the first-pick team takes one brawler, then the teams alternate in pairs, and the first-pick team also takes the second-to-last slot.",
+        "mechanism": "Pairing picks means each team answers two enemy picks at once mid-draft, which limits pure reactive countering: by the time you see two enemy brawlers you must commit two of your own.",
+        "verbatim_support": "Blue 3, Red 3, Red 2, Blue 2, Blue 1, Red 1",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "ranked",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": [
+            "mythic+"
+          ]
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "team_captain",
+            "last_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0009",
+        "type": "draft_seat",
+        "statement": "At Mythic I and above each team has a Team Captain — the highest-Elo player, or the room host in a premade — and the Captain always picks last for their team.",
+        "mechanism": "Last pick is the counter-pick seat, so the game deliberately hands the most consequential read to the highest-rated player. It also means the final answer is made by whoever is most likely to know the matchup table.",
+        "sources": [
+          {
+            "source_id": "s001",
+            "tier": "T2",
+            "locator": "#Gameplay",
+            "published": "2026-08-04"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "brawlBall",
+            "gemGrab",
+            "heist",
+            "hotZone"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "anti_tank"
+          ],
+          "mechanics": [
+            "first_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0056",
+        "type": "draft_seat",
+        "statement": "In the objective-aggro modes the correct first pick is almost always the strongest available anti-tank.",
+        "mechanism": "Anti-tanks have the fewest exploitable weaknesses, so exposing one first gives the opponent the least information to counter-draft against. A pick with a sharp weakness telegraphs the answer to the last-pick seat.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "13:46",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "anti_tank"
+          ],
+          "mechanics": [
+            "first_pick",
+            "last_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0057",
+        "type": "draft_seat",
+        "statement": "Competitive drafting reduces to a repeating pattern: the first-pick team takes the map's best anti-tank and the last-pick team tries to beat it.",
+        "mechanism": "Because first pick cannot be countered pre-emptively, it claims raw strength; the last-pick seat holds full information and spends it answering that pick. Both seats are playing the same object from opposite sides.",
+        "verbatim_support": "the entire game in pro",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "17:21",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower"
+          ],
+          "mechanics": [
+            "last_pick",
+            "telegraphing"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0058",
+        "type": "draft_seat",
+        "statement": "Throwers should generally be held until last pick, and are close to unplayable if exposed earlier.",
+        "mechanism": "A thrower has one dominant weakness — anything that closes distance — and cannot be protected once revealed. Committing it early hands the opponent a free, high-value counter-pick with several seats left to use it.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "04:34",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "space_maker",
+            "thrower",
+            "sniper"
+          ],
+          "mechanics": [
+            "denial",
+            "pick_order"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0060",
+        "type": "draft_seat",
+        "statement": "The fourth and fifth picks are the correct place for a space maker, specifically to deny the opponent a comfortable last-pick thrower or sniper.",
+        "mechanism": "A space maker on the board makes fragile long-range picks unplayable. Placing it before the final seats removes the opponent's best remaining options rather than answering picks already made.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "15:49",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "control",
+            "anti_tank"
+          ],
+          "mechanics": [
+            "first_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0061",
+        "type": "draft_seat",
+        "statement": "Control brawlers should not be taken first pick; they are safe only once an anti-tank is already secured.",
+        "mechanism": "Control kits trade damage for map presence. Exposed first, they invite the opponent to take the best anti-tank or tank and simply walk at them, a situation control has no damage answer to.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "19:23",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "terminology": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "marksman",
+            "tank",
+            "assassin",
+            "artillery",
+            "damage_dealer",
+            "support",
+            "controller"
+          ],
+          "mechanics": [
+            "class_system"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0015",
+        "type": "terminology",
+        "statement": "The game ships seven official brawler classes — Marksman, Tank, Assassin, Artillery, Damage Dealer, Support and Controller — and they are sortable in the brawler list.",
+        "mechanism": "These are the only labels with in-client authority, which is why they are the natural join key for tooling even where the community disputes them.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "01:30",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Sam",
+            "Janet",
+            "Maisie",
+            "Willow"
+          ],
+          "roles": [],
+          "mechanics": [
+            "class_system"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0016",
+        "type": "terminology",
+        "statement": "Competitive players widely regard the official class labels as unreliable for drafting, because several brawlers are filed under classes that do not match how they are actually played.",
+        "mechanism": "Classes are assigned per-brawler and never change, but a brawler's functional role depends on its kit interacting with map and mode. A single fixed label cannot express a brawler that is a tank on one map and an assassin on another.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "02:00",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper",
+            "thrower",
+            "tank_counter",
+            "dps"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0017",
+        "type": "terminology",
+        "statement": "Community drafting vocabulary commonly renames the official classes: Marksman becomes \"sniper\", Artillery becomes \"thrower\", and Damage Dealer becomes \"tank counter\" or \"DPS\".",
+        "mechanism": "The renamed terms encode function rather than flavour — \"tank counter\" states the matchup the pick exists to win, which is the information a drafter actually needs.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "02:30",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "controller"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0018",
+        "type": "terminology",
+        "statement": "The \"Controller\" class is frequently discarded entirely in community taxonomies, its members redistributed to other roles.",
+        "mechanism": "Controller groups brawlers by having some area-denial effect rather than by a shared matchup profile, so it predicts nothing about who beats whom — the thing a draft taxonomy has to predict.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "03:00",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "aggro",
+            "control"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0019",
+        "type": "terminology",
+        "statement": "A parallel and coarser vocabulary splits the roster into \"aggro\" (tanks, assassins, tank counters) and \"control\" (snipers, throwers, supports, ranged DPS).",
+        "mechanism": "This axis tracks preferred engagement range, which is the single variable that most map layouts reward or punish, so it survives as a shorthand even where finer labels disagree.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "08:34",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0020",
+        "type": "terminology",
+        "statement": "Role vocabulary in this game is not standardised: range-based labels, aggro/control, official classes and imported MOBA lane names all circulate simultaneously.",
+        "mechanism": "No governing body defines the terms, and the official classes are too weak to displace community coinages. Any tool must therefore pick one vocabulary and state its mapping explicitly.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "09:04",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower",
+            "space_maker",
+            "anti_tank",
+            "control",
+            "sniper",
+            "tank",
+            "support"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0052",
+        "type": "terminology",
+        "statement": "A widely used competitive taxonomy splits the roster into seven draft classes: throwers, space makers, anti-tanks, control, snipers, tanks and supports.",
+        "mechanism": "These are defined by the role a brawler plays in the draft — what it denies the opponent — rather than by its kit in isolation, which is why the categories cut across the official classes.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "03:03",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "control",
+            "tank",
+            "space_maker",
+            "assassin"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [
+          "c0018"
+        ],
+        "claim_id": "c0053",
+        "type": "terminology",
+        "statement": "Competitive taxonomies disagree with each other, not only with the official classes: some keep a \"control\" class and split tanks from assassins by mobility, others discard control and merge them.",
+        "mechanism": "Each taxonomy is built to predict a different thing. Splitting tanks from \"space makers\" predicts which brawlers can punish a thrower; keeping \"control\" predicts which brawlers hold ground against mid-range damage. Neither is wrong, but they are not interchangeable.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "08:07",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "space_maker",
+            "assassin"
+          ],
+          "mechanics": [
+            "space_creation"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0054",
+        "type": "terminology",
+        "statement": "The \"space maker\" label reframes assassins around the map control they generate rather than around their burst damage.",
+        "mechanism": "What makes the archetype draft-relevant is that it takes two opponents' time and ammunition to remove, which frees the rest of the team to advance. Burst is the means; forcing that resource commitment is the effect that decides drafts.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "08:37",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "principle": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Carl",
+            "Max",
+            "Gray",
+            "Byron",
+            "Larry & Lawrie"
+          ],
+          "roles": [],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0021",
+        "type": "principle",
+        "statement": "Many brawlers legitimately occupy more than one role at once, so role membership is a set rather than a single label.",
+        "mechanism": "Role is a function of which part of a kit the map and mode reward. Carl is played as a tank for space-taking on some maps and as an assassin against snipers on others, using different parts of the same kit.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "05:02",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Darryl",
+            "Kit"
+          ],
+          "roles": [
+            "tank",
+            "assassin"
+          ],
+          "mechanics": [
+            "super_charge",
+            "rework"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0022",
+        "type": "principle",
+        "statement": "Balance changes can move a brawler between archetypes outright, so role tables have a shelf life tied to the patch cycle.",
+        "mechanism": "A super that becomes shorter-ranged, controllable and self-charging converts a damage-soaking tank into a repeatable-mobility assassin, because archetype is determined by whether the kit can reliably close distance, not by hitpoints alone.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "05:32",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Gene",
+            "Poco",
+            "Sandy",
+            "Squeak",
+            "Mr. P",
+            "Eve",
+            "Bea",
+            "Ruffs",
+            "Penny",
+            "Janet"
+          ],
+          "roles": [
+            "support"
+          ],
+          "mechanics": [
+            "dps"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0033",
+        "type": "principle",
+        "statement": "Supports do not counter any archetype; their function is to enable a composition rather than to win a matchup.",
+        "mechanism": "Pure supports carry low damage output, so they lose the direct exchange to assassins and tanks up close and to snipers at range, and cannot threaten throwers behind walls at all. Their value is conditional on a teammate converting it.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "13:40",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Byron"
+          ],
+          "roles": [
+            "support",
+            "sniper"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0034",
+        "type": "principle",
+        "statement": "A support whose kit resembles another archetype inherits that archetype's matchups rather than the support role's.",
+        "mechanism": "Matchups are decided by range band and delivery mechanism, not by whether a kit also heals. A long-range healer wins and loses the same fights a sniper does.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "13:09",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "bounty"
+          ],
+          "map_archetypes": [
+            "open"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Tick",
+            "Grom",
+            "Sprout",
+            "Dynamike"
+          ],
+          "roles": [
+            "thrower",
+            "sniper"
+          ],
+          "mechanics": [
+            "range"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0042",
+        "type": "principle",
+        "statement": "In Bounty only long-range throwers are viable, because short-range throwers cannot reach where snipers position.",
+        "mechanism": "A thrower must out-range the enemy's standing position to contribute. Bounty snipers hold ground beyond a short thrower's maximum throw distance, so the pick contributes nothing without moving into lethal range.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "19:46",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Bull",
+            "Rosa",
+            "Buzz"
+          ],
+          "roles": [
+            "tank",
+            "space_maker"
+          ],
+          "mechanics": [
+            "mobility",
+            "gap_closing"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0055",
+        "type": "principle",
+        "statement": "Tanks and space makers are distinguished by gap-closing ability, not by hitpoints, and this changes which brawlers counter them.",
+        "mechanism": "A high-health brawler with no dash cannot reach a thrower behind walls, so throwers counter it. The same health pool attached to a dash reaches the thrower, so throwers do not. Mobility, not bulk, determines the counter set.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "24:01",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower"
+          ],
+          "mechanics": [
+            "wall_interaction"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0059",
+        "type": "principle",
+        "statement": "Throwers are close to binary in outcome: either the opponent has no way to reach them and they dominate, or they are reached and contribute nothing.",
+        "mechanism": "Their damage is delivered from a protected position. That protection either holds for the whole game or fails entirely, so there is little middle ground between the two states.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "05:04",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Max",
+            "Poco",
+            "Gray",
+            "Kit"
+          ],
+          "roles": [
+            "support"
+          ],
+          "mechanics": [
+            "synergy"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0065",
+        "type": "principle",
+        "statement": "Supports are strongest when the opponent has no way to punish them, and a support that goes uncountered often produces the cleanest competitive drafts.",
+        "mechanism": "Support value is multiplicative on teammates rather than additive, so it compounds when unanswered. It also cannot generate value alone, which is why it must be paired with a damage source.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "27:04",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "heist"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Chuck"
+          ],
+          "roles": [],
+          "mechanics": [
+            "objective_damage",
+            "damage_race"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0073",
+        "type": "principle",
+        "statement": "Against a brawler that attacks the Heist safe unopposed, the stronger response is usually to out-damage it rather than to draft a defensive counter.",
+        "mechanism": "Heist is scored by damage dealt, not by kills, and a committed safe-attacker cannot be fully prevented. Trading a draft slot for partial mitigation loses the damage race that actually decides the mode.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "35:44",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "meta_tracking"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0080",
+        "type": "principle",
+        "statement": "Because class strength shifts every balance patch, tracking which brawlers currently occupy each draft role matters more than memorising specific picks.",
+        "mechanism": "The structural rule (\"first-pick the best anti-tank\") is stable; only its argument changes. Memorising the argument rather than the rule produces drafts that decay with each patch.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "40:50",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "space_maker",
+            "thrower",
+            "sniper",
+            "control"
+          ],
+          "mechanics": [
+            "power_creep"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0081",
+        "type": "principle",
+        "statement": "A run of released brawlers concentrated in one archetype can suppress entire other archetypes out of competitive viability.",
+        "mechanism": "Archetype balance is relative. Adding many high-mobility gap-closers raises the baseline threat to fragile long-range picks, so those picks fall below viability without themselves being changed.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "08:37",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Mandy",
+            "Piper"
+          ],
+          "roles": [
+            "sniper"
+          ],
+          "mechanics": [
+            "power_creep",
+            "hypercharge"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0084",
+        "type": "principle",
+        "statement": "Pure long-range snipers have largely fallen out of high-level drafting, displaced by mobility power creep and hypercharge burst.",
+        "mechanism": "A pure sniper's value depends on never being reached. As the number of kits that reliably reach it grows, the conditions for that value stop occurring often enough to justify a draft slot.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "20:56",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "counter": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "assassin",
+            "thrower",
+            "sniper"
+          ],
+          "mechanics": [
+            "mobility",
+            "burst"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0023",
+        "type": "counter",
+        "statement": "Assassins beat throwers and snipers as a general archetype matchup.",
+        "mechanism": "Throwers and snipers are built around low hitpoints and damage delivered at distance. An assassin's mobility tool collapses that distance in one action, and its close-range burst exceeds their effective health before they can re-establish spacing.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "10:06",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "tank_counter",
+            "tank",
+            "assassin"
+          ],
+          "mechanics": [
+            "dps",
+            "knockback",
+            "slow",
+            "stun"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0024",
+        "type": "counter",
+        "statement": "Tank counters beat both tanks and assassins.",
+        "mechanism": "High sustained damage at medium range punishes the approach both archetypes must make. Knockback, slow and stun effects in the same kits also strip the movement-speed advantage that lets tanks and assassins close distance at all.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "10:06",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "open"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper",
+            "assassin"
+          ],
+          "mechanics": [
+            "cover",
+            "mobility_cooldown"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0025",
+        "type": "counter",
+        "statement": "On very open maps the sniper-versus-assassin matchup inverts and snipers beat assassins.",
+        "mechanism": "An assassin needs cover to survive the interval while its mobility tool recharges. With no cover, it spends that interval exposed inside the sniper's range band, and dies before it can re-engage.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "10:37",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "walled"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower",
+            "assassin"
+          ],
+          "mechanics": [
+            "wall_interaction"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0026",
+        "type": "counter",
+        "statement": "On heavily walled maps throwers beat every other archetype, including most assassins.",
+        "mechanism": "Throwers deliver damage over walls while remaining untargetable behind them. Dense walls also break the straight-line paths that mobility tools need, so the usual assassin answer cannot be executed.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "11:07",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "walled"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Mico",
+            "Edgar"
+          ],
+          "roles": [
+            "assassin",
+            "thrower"
+          ],
+          "mechanics": [
+            "wall_traversal"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0027",
+        "type": "counter",
+        "statement": "Assassins that traverse walls remain viable into throwers even on walled maps.",
+        "mechanism": "Wall-crossing movement removes the pathing constraint that normally protects a thrower, restoring the assassin's ability to reach it directly rather than around it.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "11:07",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "bush-heavy"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "tank",
+            "assassin",
+            "tank_counter"
+          ],
+          "mechanics": [
+            "line_of_sight",
+            "burst",
+            "hitpoints"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0030",
+        "type": "counter",
+        "statement": "Bush-heavy maps favour tanks, and tanks beat assassins in a straight fight on such maps.",
+        "mechanism": "Bushes break line of sight, letting a tank absorb less damage while closing. Once in contact, most tanks carry enough burst to kill an assassin in a few shots, while assassins lack the sustained damage to chew through tank hitpoints.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "12:08",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Draco",
+            "Frank",
+            "Hank"
+          ],
+          "roles": [
+            "tank",
+            "space_maker",
+            "anti_tank"
+          ],
+          "mechanics": [
+            "hitpoints"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0064",
+        "type": "counter",
+        "statement": "When the opponent commits a space maker and has no anti-tank, answering with a high-health tank is close to automatic.",
+        "mechanism": "A space maker kills by burst against a limited health pool. Against a bulkier brawler with comparable close-range damage, the exchange simply loses, and without an anti-tank the opponent has nothing else that beats bulk.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "25:32",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "composition": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Brock",
+            "Gray",
+            "Griff"
+          ],
+          "roles": [
+            "thrower",
+            "wallbreaker"
+          ],
+          "mechanics": [
+            "wall_destruction"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0028",
+        "type": "composition",
+        "statement": "Wall-breaking in a composition is the structural answer to throwers, because it removes the terrain the thrower's advantage depends on.",
+        "mechanism": "A thrower trades direct-fire capability for the ability to attack from behind cover. Destroying the cover leaves it holding the weaker half of that trade in the open.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "11:07",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "knockout"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Buster",
+            "Kit",
+            "Berry"
+          ],
+          "roles": [
+            "support",
+            "tank"
+          ],
+          "mechanics": [
+            "auto_charge_super"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0044",
+        "type": "composition",
+        "statement": "A super that charges without needing to hit anything is disproportionately valuable in Knockout.",
+        "mechanism": "In a mode where initiating is punished, a super that accrues passively converts waiting into resources, so a passive player still arrives at the decisive moment with a cooldown available.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "21:18",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "bush-heavy"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "assassin",
+            "tank"
+          ],
+          "mechanics": [
+            "vision_gear",
+            "line_of_sight"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0045",
+        "type": "composition",
+        "statement": "Vision-granting gear substantially weakens bush-dependent aggression on grassy maps and is available to nearly any brawler.",
+        "mechanism": "Bush strategies depend on denying line of sight before contact. Restoring detection removes the surprise the approach relies on, converting a favourable engagement into a normal ranged exchange.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "23:20",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper",
+            "tank",
+            "assassin",
+            "thrower",
+            "tank_counter"
+          ],
+          "mechanics": [
+            "pool_depth"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0049",
+        "type": "composition",
+        "statement": "Because archetype matchups form a rock-paper-scissors structure, a player's available pool needs at least two brawlers in each of the main archetypes to draft flexibly.",
+        "mechanism": "The last-pick counter seat is only usable if the counter is actually owned and practised. A pool concentrated in one archetype forfeits the counter-pick seat regardless of draft knowledge.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "24:20",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Carl",
+            "Larry & Lawrie",
+            "Byron",
+            "Gene",
+            "Chester",
+            "Rico",
+            "Amber"
+          ],
+          "roles": [],
+          "mechanics": [
+            "pool_depth",
+            "flexibility"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0050",
+        "type": "composition",
+        "statement": "Brawlers that credibly fill more than one role are disproportionately valuable in a limited pool because they cover several draft contingencies with one slot.",
+        "mechanism": "Draft flexibility is a function of how many distinct answers a pool can produce, not how many brawlers it contains. A dual-role kit raises answer count per owned brawler.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "25:21",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "brawlBall",
+            "gemGrab",
+            "heist",
+            "hotZone"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "anti_tank"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0062",
+        "type": "composition",
+        "statement": "A composition in the objective-aggro modes is not viable without at least one anti-tank, and filling that slot takes priority over any other consideration.",
+        "mechanism": "Anti-tank is the only role that answers both tanks and space makers. Without it there is no response to the opponent simply taking the bulkiest available body and advancing.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "19:54",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "brawlBall",
+            "gemGrab",
+            "heist",
+            "hotZone"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "anti_tank",
+            "space_maker"
+          ],
+          "mechanics": [
+            "synergy"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0063",
+        "type": "composition",
+        "statement": "Anti-tank paired with space maker is the core winning skeleton of an aggro-mode composition.",
+        "mechanism": "The space maker forces the opponent to spend resources removing it, and the anti-tank converts the resulting numerical and positional advantage into damage. Each covers the other's counter.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "33:42",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "esports",
+          "modes": [
+            "bounty"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Mortis",
+            "Kaze",
+            "Carl"
+          ],
+          "roles": [
+            "space_maker"
+          ],
+          "mechanics": [
+            "lead_pressure"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "low",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0074",
+        "type": "composition",
+        "statement": "In Bounty, some teams deliberately draft a brawler that can secure the opening star and force the opponent to attack into them.",
+        "mechanism": "Bounty score rewards holding a lead, so taking the first star inverts the pressure: the trailing team must accept unfavourable engagements, which is exactly what the passive meta punishes.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "38:17",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Willow"
+          ],
+          "roles": [
+            "thrower",
+            "anti_tank"
+          ],
+          "mechanics": [
+            "self_peel"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0082",
+        "type": "composition",
+        "statement": "A thrower whose kit also answers tanks breaks the normal thrower drafting rule and can be taken early rather than held for last pick.",
+        "mechanism": "The last-pick constraint on throwers exists because they lose to anything that closes distance. A thrower with self-defence against divers no longer carries that weakness, so the reason for hiding it disappears.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "06:35",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "knockout"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "R-T"
+          ],
+          "roles": [
+            "sniper"
+          ],
+          "mechanics": [
+            "hypercharge",
+            "gas_closing"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0083",
+        "type": "composition",
+        "statement": "A sniper carrying a close-range hypercharge is far more draftable in Knockout than a pure long-range sniper.",
+        "mechanism": "Knockout resolves on the closing gas, which forces distance to collapse regardless of positioning. A kit that stays useful after that collapse keeps functioning in the phase that decides the round.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "22:29",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "map_requirement": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower",
+            "wallbreaker"
+          ],
+          "mechanics": [
+            "unbreakable_walls",
+            "wall_destruction"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0029",
+        "type": "map_requirement",
+        "statement": "Indestructible walls weaken wall-breaking as a counter-strategy and let throwers stay viable on maps that would otherwise be too open for them.",
+        "mechanism": "Wall-break picks answer throwers by removing cover. Where the cover cannot be removed, that answer is unavailable and the drafting slot spent on it is wasted.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "11:07",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "open",
+            "walled",
+            "bush-heavy",
+            "mixed"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "assassin",
+            "tank_counter"
+          ],
+          "mechanics": []
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0031",
+        "type": "map_requirement",
+        "statement": "The three map extremes — fully open, fully walled, fully bushy — are theoretical poles; live map rotations sit between them, which is what keeps assassins and tank counters broadly playable.",
+        "mechanism": "Each pole hands dominance to one archetype. Mixed terrain denies any single archetype an uncontested map, so the archetypes that counter the pole-dominant ones stay relevant.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "12:39",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [
+            "asymmetric",
+            "mixed"
+          ],
+          "maps": [
+            "Cavern Churn",
+            "Snake Prairie"
+          ],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "lane_assignment"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0032",
+        "type": "map_requirement",
+        "statement": "Some maps are internally heterogeneous, with sections of different character, so a brawler can be strong in one region of a map and unplayable in another.",
+        "mechanism": "Terrain determines archetype advantage locally, not globally. A map with an open lane and a walled lane runs two different matchup tables simultaneously, making lane assignment part of the draft.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "13:09",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "brawlBall"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "tank",
+            "assassin",
+            "tank_counter"
+          ],
+          "mechanics": [
+            "mobility",
+            "objective_carry"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0035",
+        "type": "map_requirement",
+        "statement": "Brawl Ball structurally rewards mobility, which favours tanks and assassins.",
+        "mechanism": "The win condition requires physically transporting an object to a fixed location, so kits that reposition quickly advance the objective directly rather than only winning fights.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "14:41",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "brawlBall"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper"
+          ],
+          "mechanics": [
+            "overtime",
+            "wall_destruction"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0036",
+        "type": "map_requirement",
+        "statement": "Brawl Ball overtime destroys walls, so a stalling game converts a walled map into an open one mid-match.",
+        "mechanism": "Because terrain itself changes at a known trigger, a composition can be drafted for the second terrain state — snipers and wall-break picks gain value specifically as a stall contingency.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "15:42",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "heist"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "tank_counter",
+            "tank",
+            "sniper"
+          ],
+          "mechanics": [
+            "dps",
+            "objective_damage"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0037",
+        "type": "map_requirement",
+        "statement": "Heist rewards mobility and raw damage together, making high-DPS tank counters and mobile aggressive tanks the core picks.",
+        "mechanism": "The objective is a stationary high-health target, so damage against it cannot be dodged or healed and effectively behaves like an immobile tank — the exact profile tank counters are built to beat.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "16:12",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "heist"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Melodie",
+            "Mico",
+            "Carl",
+            "Buzz",
+            "Edgar"
+          ],
+          "roles": [
+            "assassin"
+          ],
+          "mechanics": [
+            "burst",
+            "objective_damage"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0038",
+        "type": "map_requirement",
+        "statement": "Assassins are generally weak in Heist despite their mobility, because their damage profile does not translate to the safe.",
+        "mechanism": "Assassin damage is burst tuned to delete a low-health target, not sustained output against a large stationary health pool, so the archetype's strength does not apply to the objective.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "16:43",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "gemGrab"
+          ],
+          "map_archetypes": [
+            "long-lane",
+            "mixed"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper",
+            "support",
+            "tank",
+            "assassin"
+          ],
+          "mechanics": [
+            "lane_assignment"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0039",
+        "type": "map_requirement",
+        "statement": "Gem Grab maps are typically three lanes: a relatively open middle leading to the gem spawn, and two side lanes with heavier cover.",
+        "mechanism": "The layout runs two different matchup environments at once, so the mode demands a composition split by lane — long-range control for the exposed middle, close-range aggression for the covered sides.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "17:13",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "hotZone"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "tank",
+            "support"
+          ],
+          "mechanics": [
+            "zone_control",
+            "sustain"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0040",
+        "type": "map_requirement",
+        "statement": "Hot Zone requires at least one brawler that can physically occupy the zone and survive there, typically a tank or a sustain support.",
+        "mechanism": "Scoring is generated by standing inside an area over time, not by eliminations. Only high effective health or healing converts presence into score against contested pressure.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "17:43",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "bounty"
+          ],
+          "map_archetypes": [
+            "open"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper",
+            "thrower"
+          ],
+          "mechanics": [
+            "death_penalty"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0041",
+        "type": "map_requirement",
+        "statement": "Bounty punishes dying more than other modes, so it favours brawlers that can secure kills without entering contested space.",
+        "mechanism": "Each death directly awards score to the opponent, so the risk side of any aggressive trade is priced higher than in modes where death only costs time.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "19:16",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "knockout"
+          ],
+          "map_archetypes": [
+            "open",
+            "long-lane"
+          ],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Buster",
+            "Hank",
+            "Kit",
+            "Gene"
+          ],
+          "roles": [
+            "sniper",
+            "thrower",
+            "tank",
+            "support"
+          ],
+          "mechanics": [
+            "no_respawn",
+            "auto_charge_super"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0043",
+        "type": "map_requirement",
+        "statement": "Knockout has no respawn, which pushes it further toward passive play than Bounty and lets many games resolve on the closing gas rather than on engagements.",
+        "mechanism": "A death is permanent for the round, so the expected cost of an aggressive move is maximal. Kits that generate value without initiating — long range, auto-charging supers, wall-independent damage — accrue advantage by default.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "20:47",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "win_condition"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0071",
+        "type": "map_requirement",
+        "statement": "The five ranked modes divide into two drafting metas: an objective-aggro meta covering Brawl Ball, Gem Grab, Heist and Hot Zone, and a passive meta covering Bounty and Knockout.",
+        "mechanism": "The split follows from whether the win condition requires occupying contested ground. Where it does, brawlers must survive close-range contact; where it does not, brawlers are rewarded for never entering it.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "29:39",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "gemGrab"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "anti_tank",
+            "space_maker"
+          ],
+          "mechanics": [
+            "hypercharge",
+            "gem_swing"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0072",
+        "type": "map_requirement",
+        "statement": "In Gem Grab, brawlers whose hypercharged super is close to a guaranteed kill are prioritised because they convert directly into gem swings.",
+        "mechanism": "Gems drop on death and can be collected immediately, so a reliable single-target kill is worth both the elimination and the carried gems — a swing no other mode rewards as sharply.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "34:12",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "failure_mode": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "hotZone",
+            "heist"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower",
+            "sniper",
+            "tank"
+          ],
+          "mechanics": [
+            "zone_control",
+            "objective_conversion"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0046",
+        "type": "failure_mode",
+        "statement": "Drafting purely for kill pressure in Hot Zone loses games even when the team wins every fight — the \"kill spiral\".",
+        "mechanism": "Score accrues only from occupying the zone. A team of long-range brawlers kills opponents at distance but is positioned away from the zone, so eliminations never convert to percentage while the opposing tank trades its life for uptime on the point.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "18:14",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "objective_conversion"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0047",
+        "type": "failure_mode",
+        "statement": "Individual scoreboard performance is a misleading signal of draft quality in objective modes.",
+        "mechanism": "Star player and KD reward damage and eliminations, neither of which is the win condition in zone or objective modes, so a pick can top the scoreboard while actively costing the game.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "19:16",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "lane_assignment"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "low",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0048",
+        "type": "failure_mode",
+        "statement": "Drafting a counter-pick onto a map section where it cannot operate wastes the counter.",
+        "mechanism": "Counter relationships hold only inside the terrain that permits them. A wall-crossing assassin answers a thrower only if it can reach the thrower's lane; drafted onto the wrong lane it faces the matchup without the enabling terrain.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "13:09",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "coverage",
+            "redundancy"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0075",
+        "type": "failure_mode",
+        "statement": "The most common drafting error is evaluating a pick only against the enemy brawlers, ignoring which of those threats teammates already answer.",
+        "mechanism": "Counter coverage is a team property. A third brawler that beats an already-covered threat adds no coverage while leaving an uncovered threat free, which the opponent then drafts into.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "11:44",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "redundancy",
+            "range_distribution"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0076",
+        "type": "failure_mode",
+        "statement": "Stacking multiple brawlers of the same class concentrates a shared weakness and hands the opponent a single pick that beats the whole composition.",
+        "mechanism": "Brawlers in one class share a counter set. Three of them means one enemy pick is favoured into all three at once, rather than into one third of the team.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "34:42",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "sniper",
+            "control",
+            "space_maker"
+          ],
+          "mechanics": [
+            "range_distribution",
+            "dps"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0077",
+        "type": "failure_mode",
+        "statement": "Drafting a comp of long-range answers with no damage loses to the bulk-plus-mobility pairing even though every individual matchup looks favourable.",
+        "mechanism": "Range counters are evaluated one-on-one, but a team without a damage source cannot remove a space maker before it arrives. The favourable matchups never resolve because the fight is decided at close range.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "14:48",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Mortis"
+          ],
+          "roles": [],
+          "mechanics": [
+            "counter_the_counter"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0078",
+        "type": "failure_mode",
+        "statement": "When a teammate opens with an exploitable first pick, doubling down on a brawler with the same weakness compounds the error; the recovery is to draft the counter to the expected counter.",
+        "mechanism": "The opponent is now committed to answering the exposed pick. That commitment is predictable, and a pick chosen to beat the predicted answer converts their information advantage into a liability.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "42:21",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [
+            "thrower",
+            "sniper"
+          ],
+          "mechanics": [
+            "last_pick",
+            "protection"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0079",
+        "type": "failure_mode",
+        "statement": "Committing a fragile long-range pick without a teammate positioned to protect it loses to the opponent's final counter-pick.",
+        "mechanism": "Fragile picks depend on a protecting body. Taken with seats still to come and no protection drafted, the opponent simply uses the last seat on the brawler that reaches it.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "39:49",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ],
+    "ban_heuristic": [
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_priority"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0051",
+        "type": "ban_heuristic",
+        "statement": "A brawler strong enough to be the best pick regardless of mode transcends archetype reasoning and becomes a standing ban target until it is nerfed.",
+        "mechanism": "Normal drafting assumes every pick has terrain or matchups where it is wrong. A brawler with no such condition cannot be answered by drafting around it, so removing it from the pool is the only available response.",
+        "sources": [
+          {
+            "source_id": "s002",
+            "tier": "T3",
+            "locator": "22:20",
+            "published": "2024-09-02"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_priority",
+            "first_pick"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0066",
+        "type": "ban_heuristic",
+        "statement": "Holding first pick, a strong ban strategy is to remove the opponent's best answers to the pick you intend to make rather than the strongest brawlers overall.",
+        "mechanism": "First pick exposes a brawler to the whole remaining draft. Pre-removing its counters converts a normally risky early commitment into a protected one, because the answers no longer exist in the pool.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "42:53",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Mortis"
+          ],
+          "roles": [
+            "anti_tank"
+          ],
+          "mechanics": [
+            "ban_priority",
+            "pool_shaping"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0067",
+        "type": "ban_heuristic",
+        "statement": "An advanced pattern is to ban the next-best anti-tanks and then first-pick a brawler that would normally be counter-picked, forcing the opponent into an anti-tank that matches up badly against it.",
+        "mechanism": "Bans and picks are one combined action. Removing the tier of answers directly above the remaining ones means the opponent's forced response is drawn from a pool you have already shaped to lose.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "42:53",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [
+            "bounty",
+            "knockout"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "Belle",
+            "Byron",
+            "Gus"
+          ],
+          "roles": [
+            "sniper"
+          ],
+          "mechanics": [
+            "ban_priority"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "medium",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0068",
+        "type": "ban_heuristic",
+        "statement": "Teams routinely ban the strong second- and third-seat answers in the passive modes rather than the strongest first picks.",
+        "mechanism": "In modes where first pick is a solid generalist rather than a dominant pick, the decisive seats are the responses. Removing the best responses is worth more than removing a first pick the opponent can substitute for.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "22:29",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "both",
+          "modes": [],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [],
+          "roles": [],
+          "mechanics": [
+            "ban_priority",
+            "hidden_information"
+          ]
+        },
+        "durability": "structural",
+        "confidence": "high",
+        "corroborations": 2,
+        "conflicts_with": [],
+        "claim_id": "c0069",
+        "type": "ban_heuristic",
+        "statement": "Teams expect opponents to ban the mode's top first picks, and plan their own bans assuming those brawlers are already gone.",
+        "mechanism": "Because bans are simultaneous and hidden, banning a brawler the opponent was also going to ban wastes the slot. Predicting the overlap and banning one tier lower converts a wasted slot into a real removal.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "42:53",
+            "published": "2026-04-09"
+          }
+        ]
+      },
+      {
+        "scope": {
+          "format": "esports",
+          "modes": [
+            "knockout"
+          ],
+          "map_archetypes": [],
+          "maps": [],
+          "ranks": []
+        },
+        "entities": {
+          "brawlers": [
+            "R-T",
+            "Chuck"
+          ],
+          "roles": [
+            "sniper"
+          ],
+          "mechanics": [
+            "ban_priority"
+          ]
+        },
+        "durability": "meta_dependent",
+        "confidence": "low",
+        "corroborations": 1,
+        "conflicts_with": [],
+        "claim_id": "c0070",
+        "type": "ban_heuristic",
+        "statement": "A brawler that is picked or banned in nearly every professional draft of a mode is functioning as a permanent ban target rather than a contested pick.",
+        "mechanism": "When a brawler's presence rate approaches certainty, it is no longer being drafted on merit against alternatives — the pool effectively contains one fewer slot, and the ban is a formality.",
+        "sources": [
+          {
+            "source_id": "s003",
+            "tier": "T2",
+            "locator": "22:29",
+            "published": "2026-04-09"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,545 @@
+{
+  "_meta": {
+    "generated": "2026-08-05T06:33:08.202Z",
+    "source": "api.brawlapi.com/game/csv_logic/characters -> ClassArchetype, joined to /v1/brawlers on id",
+    "note": "Authoritative. Use in preference to /v1/brawlers .class, which is Unknown for the 20 newest brawlers.",
+    "brawlers": 107
+  },
+  "brawlers": {
+    "Shelly": {
+      "id": 16000000,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Colt": {
+      "id": 16000001,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Bull": {
+      "id": 16000002,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Brock": {
+      "id": 16000003,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Rico": {
+      "id": 16000004,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Spike": {
+      "id": 16000005,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Barley": {
+      "id": 16000006,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "Jessie": {
+      "id": 16000007,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Nita": {
+      "id": 16000008,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Dynamike": {
+      "id": 16000009,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "El Primo": {
+      "id": 16000010,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Mortis": {
+      "id": 16000011,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Crow": {
+      "id": 16000012,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Poco": {
+      "id": 16000013,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Bo": {
+      "id": 16000014,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Piper": {
+      "id": 16000015,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Pam": {
+      "id": 16000016,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Tara": {
+      "id": 16000017,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Darryl": {
+      "id": 16000018,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Penny": {
+      "id": 16000019,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Frank": {
+      "id": 16000020,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Gene": {
+      "id": 16000021,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Tick": {
+      "id": 16000022,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "Leon": {
+      "id": 16000023,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Rosa": {
+      "id": 16000024,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Carl": {
+      "id": 16000025,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Bibi": {
+      "id": 16000026,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "8-Bit": {
+      "id": 16000027,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Sandy": {
+      "id": 16000028,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Bea": {
+      "id": 16000029,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Emz": {
+      "id": 16000030,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Mr. P": {
+      "id": 16000031,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Max": {
+      "id": 16000032,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Jacky": {
+      "id": 16000034,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Gale": {
+      "id": 16000035,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Nani": {
+      "id": 16000036,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Sprout": {
+      "id": 16000037,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "Surge": {
+      "id": 16000038,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Colette": {
+      "id": 16000039,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Amber": {
+      "id": 16000040,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Lou": {
+      "id": 16000041,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Byron": {
+      "id": 16000042,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Edgar": {
+      "id": 16000043,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Ruffs": {
+      "id": 16000044,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Stu": {
+      "id": 16000045,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Belle": {
+      "id": 16000046,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Squeak": {
+      "id": 16000047,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Grom": {
+      "id": 16000048,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "Buzz": {
+      "id": 16000049,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Griff": {
+      "id": 16000050,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Ash": {
+      "id": 16000051,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Meg": {
+      "id": 16000052,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Lola": {
+      "id": 16000053,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Fang": {
+      "id": 16000054,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Eve": {
+      "id": 16000056,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Janet": {
+      "id": 16000057,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Bonnie": {
+      "id": 16000058,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Otis": {
+      "id": 16000059,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Sam": {
+      "id": 16000060,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Gus": {
+      "id": 16000061,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Buster": {
+      "id": 16000062,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Chester": {
+      "id": 16000063,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Gray": {
+      "id": 16000064,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Mandy": {
+      "id": 16000065,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "R-T": {
+      "id": 16000066,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Willow": {
+      "id": 16000067,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Maisie": {
+      "id": 16000068,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Hank": {
+      "id": 16000069,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Cordelius": {
+      "id": 16000070,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Doug": {
+      "id": 16000071,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Pearl": {
+      "id": 16000072,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Chuck": {
+      "id": 16000073,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Charlie": {
+      "id": 16000074,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Mico": {
+      "id": 16000075,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Kit": {
+      "id": 16000076,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Larry & Lawrie": {
+      "id": 16000077,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "Melodie": {
+      "id": 16000078,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Angelo": {
+      "id": 16000079,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Draco": {
+      "id": 16000080,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Lily": {
+      "id": 16000081,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Berry": {
+      "id": 16000082,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Clancy": {
+      "id": 16000083,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Moe": {
+      "id": 16000084,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Kenji": {
+      "id": 16000085,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Shade": {
+      "id": 16000086,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Juju": {
+      "id": 16000087,
+      "class": "Artillery",
+      "archetype_raw": "artillery"
+    },
+    "Buzz Lightyear": {
+      "id": 16000088,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Meeple": {
+      "id": 16000089,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Ollie": {
+      "id": 16000090,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Lumi": {
+      "id": 16000091,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Finx": {
+      "id": 16000092,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Jae-Yong": {
+      "id": 16000093,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Kaze": {
+      "id": 16000094,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Alli": {
+      "id": 16000095,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Trunk": {
+      "id": 16000096,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Mina": {
+      "id": 16000097,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Ziggy": {
+      "id": 16000098,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Pierce": {
+      "id": 16000099,
+      "class": "Marksman",
+      "archetype_raw": "marksman"
+    },
+    "Gigi": {
+      "id": 16000100,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Glowy": {
+      "id": 16000101,
+      "class": "Support",
+      "archetype_raw": "support"
+    },
+    "Sirius": {
+      "id": 16000102,
+      "class": "Controller",
+      "archetype_raw": "controller"
+    },
+    "Najia": {
+      "id": 16000103,
+      "class": "Damage Dealer",
+      "archetype_raw": "damage_dealer"
+    },
+    "Damian": {
+      "id": 16000104,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Starr Nova": {
+      "id": 16000105,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Bolt": {
+      "id": 16000106,
+      "class": "Tank",
+      "archetype_raw": "tank"
+    },
+    "Nori": {
+      "id": 16000107,
+      "class": "Assassin",
+      "archetype_raw": "assassin"
+    },
+    "Wendy": {
+      "id": 16000108,
+      "class": "Support",
+      "archetype_raw": "support"
+    }
+  }
+}

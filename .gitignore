@@ -2,3 +2,20 @@
 node_modules
 .DS_Store
 *.log
+
+# Supercell API token — never commit, never ship to the browser.
+.env
+.env.local
+
+# Research corpus: raw third-party transcripts stay local (copyright).
+# Derived claims/synthesis ARE tracked.
+research/transcripts/
+research/raw/
+research/candidates.txt
+research/meta.txt
+research/shortlist.txt
+
+# Crawler corpus — regenerate by running, never commit
+data/
+crawler/ratelimit.json
+crawler/yield.json

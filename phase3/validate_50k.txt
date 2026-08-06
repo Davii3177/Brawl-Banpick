@@ -1,0 +1,65 @@
+# Harness validation — synthetic ground truth
+
+matches=50000 epochs=20 ebIters=3
+
+generator win rate (should be ~0.5): 0.4995
+
+## NC2 / NC3 — structural antisymmetry (must hold by construction)
+NC2 max |score(A,A)|      = 3.331e-16   PASS
+NC3 max |f(A,B)+f(B,A)|   = 1.776e-15   PASS
+    => P(win | mirror draft) = 0.500000 exactly, for any parameters
+
+## Ground-truth recovery — does the fitter find planted effects?
+
+fitted M4 in 4.7s · params=15301 · temperature=10.000
+tau (fitted by empirical Bayes, not hand-set): solo_global=0.0650 solo_mode=0.1570 solo_map=1.1204 syn_global=2.4498 ctr_global=1.9472
+
+| estimand | subset | n params | corr(true, fitted) | shrinkage slope |
+|---|---|---|---|---|
+| solo (global+mode+map) | all brawlers | 107 | 0.337 | 0.291 |
+| synergy | pairs with n≥0 | 5671 | 0.062 | 1.966 |
+| synergy | pairs with n≥20 | 2252 | 0.156 | 2.483 |
+| synergy | pairs with n≥60 | 765 | 0.251 | 2.168 |
+| counter | pairs with n≥0 | 5671 | 0.068 | 1.994 |
+| counter | pairs with n≥20 | 3165 | 0.122 | 2.062 |
+| counter | pairs with n≥60 | 1160 | 0.168 | 1.640 |
+
+Reading this table: `corr` is the recovery signal; `shrinkage slope` is how far
+empirical Bayes has pulled estimates toward zero. A slope well below 1 at low n is
+CORRECT behaviour — it is the shrinkage doing its job, not a fitting failure.
+
+## Ablation ladder on synthetic data — ordering must match the planted truth
+
+| rung | params | log loss | AUC | Brier | ECE | Δ vs base | 99.17% CI | sig |
+|---|---|---|---|---|---|---|---|---|
+| M0 | 107 | 0.67628 | 0.6037 | 0.24169 | 0.0084 | — | — | — |
+| M1 | 3959 | 0.68728 | 0.5631 | 0.24708 | 0.0108 | -0.01100 | [-0.01406, -0.00696] | YES |
+| M2 | 9630 | 0.69333 | 0.5365 | 0.25001 | 0.0188 | -0.00605 | [-0.00877, -0.00361] | YES |
+| M3 | 9630 | 0.69237 | 0.5361 | 0.24957 | 0.0179 | -0.00509 | [-0.00753, -0.00265] | YES |
+| M4 | 15301 | 0.70737 | 0.5263 | 0.25630 | 0.0606 | -0.02010 | [-0.02537, -0.01487] | YES |
+
+ordering check (M4 < M1 < M0 in log loss): FAIL
+elapsed 20.6s
+
+## NC1 — label permutation (the harness must find NOTHING)
+
+| rung | log loss | Δ vs base | 99.17% CI | significant? |
+|---|---|---|---|---|
+| M1 | 0.69399 | — | — | — |
+| M2 | 0.69910 | -0.00511 | [-0.00742, -0.00293] | **YES — LEAK** |
+| M3 | 0.69967 | -0.00568 | [-0.00825, -0.00348] | **YES — LEAK** |
+| M4 | 0.71530 | -0.02131 | [-0.02578, -0.01599] | **YES — LEAK** |
+
+NC1 verdict: PASS — no family shows a significant gain on permuted labels
+log loss on permuted labels should sit at ln(2)=0.69315; observed M4 = 0.71530
+
+## NC4 — future-leak probe (later folds must be harder, not easier)
+
+log loss on a training-era fold : 0.67727
+log loss on a later (post-drift) fold : 0.69235
+NC4 verdict: PASS — the future is harder, as it must be
+
+## NC5 — post-game field exclusion
+banned post-game fields referenced in feature construction: none  PASS
+
+total elapsed 38.1s

@@ -1,0 +1,126 @@
+# Power analysis — computed, not assumed
+
+generated: 2026-08-05T01:24:27.887Z
+alpha (Bonferroni 0.05/6): 0.00833
+
+## Calibration from published Dota 2 draft-prediction work
+
+solo-only accuracy 0.580  ->  sigma_total(solo)   = 0.4120 logit  (AUC 0.6124)
+full-model AUC 0.660 (very-high skill) -> sigma_total = 0.6079 logit
+full-model AUC 0.706 (normal skill)    -> sigma_total = 0.8216 logit
+=> interaction variance (very-high skill) = 0.19978  (SD 0.4470)
+
+Dota per-term SDs: solo 0.1303 | synergy 0.0707 | counter 0.0632
+
+## Scenario: per-pair transfer (conservative)
+
+per-term SD   solo 0.1303 | synergy 0.0707 | counter 0.0632  (logit)
+per-match var solo 0.10184 | synergy 0.02997 | counter 0.03596  | total 0.16777
+implied ceiling on this corpus: AUC 0.6118, accuracy 0.5796
+
+| family | df | per-match var | M @50% | M @80% | M @95% |
+|---|---|---|---|---|---|
+| global solo (107 params) | 106 | 0.10184 | 1,525 | 2,189 | 2,878 |
+| synergy, explicit pairs (5671 df) | 5671 | 0.02997 | 34,545 | 47,167 | 59,440 |
+| counter, explicit pairs (5671 df) | 5671 | 0.03596 | 28,788 | 39,306 | 49,534 |
+| synergy+counter, rank-8 factorized (~920 df) | 920 | 0.03956 | 10,777 | 14,919 | 19,036 |
+| synergy+counter, rank-16 factorized (~1968 df) | 1968 | 0.04944 | 12,463 | 17,130 | 21,719 |
+| theory features, relative+absolute (~24 df) | 24 | 0.00449 | 18,368 | 27,483 | 37,199 |
+
+### Single-pair detection — uniform picks (s=0)
+
+| estimand | pair percentile | co-occurrences/match | n needed @80% | **matches @80%** |
+|---|---|---|---|---|
+| synergy(i,j), |δ|=0.141 | median | 1.05e-3 | 3,637 | 3,469,913 |
+| synergy(i,j), |δ|=0.141 | 10th pct (tail) | 1.05e-3 | 3,637 | 3,469,913 |
+| counter(i,k), |δ|=0.126 | median | 1.57e-3 | 4,546 | 2,891,594 |
+| counter(i,k), |δ|=0.126 | 10th pct (tail) | 1.57e-3 | 4,546 | 2,891,594 |
+
+### Single-pair detection — Zipf s=0.8
+
+| estimand | pair percentile | co-occurrences/match | n needed @80% | **matches @80%** |
+|---|---|---|---|---|
+| synergy(i,j), |δ|=0.141 | median | 3.71e-4 | 3,637 | 9,808,895 |
+| synergy(i,j), |δ|=0.141 | 10th pct (tail) | 1.50e-4 | 3,637 | 24,294,562 |
+| counter(i,k), |δ|=0.126 | median | 5.56e-4 | 4,546 | 8,174,079 |
+| counter(i,k), |δ|=0.126 | 10th pct (tail) | 2.25e-4 | 4,546 | 20,245,468 |
+
+### Single-pair detection — Zipf s=1.154
+
+| estimand | pair percentile | co-occurrences/match | n needed @80% | **matches @80%** |
+|---|---|---|---|---|
+| synergy(i,j), |δ|=0.141 | median | 1.09e-4 | 3,637 | 33,273,330 |
+| synergy(i,j), |δ|=0.141 | 10th pct (tail) | 2.95e-5 | 3,637 | 123,106,538 |
+| counter(i,k), |δ|=0.126 | median | 1.64e-4 | 4,546 | 27,727,775 |
+| counter(i,k), |δ|=0.126 | 10th pct (tail) | 4.43e-5 | 4,546 | 102,588,782 |
+
+### What hierarchical pooling actually buys
+
+Pooling does not make a single tail pair individually significant sooner — nothing does.
+It makes the per-pair *estimate* useful (low MSE) long before it is significant. The
+empirical-Bayes shrinkage factor is n/(n + 4/tau^2) with tau = the population SD of the
+effect; the crossover where data outweighs the prior is n* = 4/tau^2.
+
+synergy: tau=0.0707 -> n* = 801 co-occurrences = 7,327,180 matches at the median pair (measured Zipf s=1.154)
+counter: tau=0.0632 -> n* = 1,001 co-occurrences = 6,105,983 matches at the median pair (measured Zipf s=1.154)
+
+## Scenario: total-variance transfer (optimistic)
+
+per-term SD   solo 0.1682 | synergy 0.1290 | counter 0.1054  (logit)
+per-match var solo 0.16974 | synergy 0.09989 | counter 0.09989  | total 0.36952
+implied ceiling on this corpus: AUC 0.6600, accuracy 0.6147
+
+| family | df | per-match var | M @50% | M @80% | M @95% |
+|---|---|---|---|---|---|
+| global solo (107 params) | 106 | 0.16974 | 915 | 1,314 | 1,727 |
+| synergy, explicit pairs (5671 df) | 5671 | 0.09989 | 10,364 | 14,150 | 17,832 |
+| counter, explicit pairs (5671 df) | 5671 | 0.09989 | 10,364 | 14,150 | 17,832 |
+| synergy+counter, rank-8 factorized (~920 df) | 920 | 0.11987 | 3,556 | 4,923 | 6,282 |
+| synergy+counter, rank-16 factorized (~1968 df) | 1968 | 0.14983 | 4,113 | 5,653 | 7,167 |
+| theory features, relative+absolute (~24 df) | 24 | 0.01498 | 5,510 | 8,245 | 11,160 |
+
+### Single-pair detection — uniform picks (s=0)
+
+| estimand | pair percentile | co-occurrences/match | n needed @80% | **matches @80%** |
+|---|---|---|---|---|
+| synergy(i,j), |δ|=0.258 | median | 1.05e-3 | 1,091 | 1,040,974 |
+| synergy(i,j), |δ|=0.258 | 10th pct (tail) | 1.05e-3 | 1,091 | 1,040,974 |
+| counter(i,k), |δ|=0.211 | median | 1.57e-3 | 1,637 | 1,040,974 |
+| counter(i,k), |δ|=0.211 | 10th pct (tail) | 1.57e-3 | 1,637 | 1,040,974 |
+
+### Single-pair detection — Zipf s=0.8
+
+| estimand | pair percentile | co-occurrences/match | n needed @80% | **matches @80%** |
+|---|---|---|---|---|
+| synergy(i,j), |δ|=0.258 | median | 3.71e-4 | 1,091 | 2,942,669 |
+| synergy(i,j), |δ|=0.258 | 10th pct (tail) | 1.50e-4 | 1,091 | 7,288,368 |
+| counter(i,k), |δ|=0.211 | median | 5.56e-4 | 1,637 | 2,942,669 |
+| counter(i,k), |δ|=0.211 | 10th pct (tail) | 2.25e-4 | 1,637 | 7,288,368 |
+
+### Single-pair detection — Zipf s=1.154
+
+| estimand | pair percentile | co-occurrences/match | n needed @80% | **matches @80%** |
+|---|---|---|---|---|
+| synergy(i,j), |δ|=0.258 | median | 1.09e-4 | 1,091 | 9,981,999 |
+| synergy(i,j), |δ|=0.258 | 10th pct (tail) | 2.95e-5 | 1,091 | 36,931,961 |
+| counter(i,k), |δ|=0.211 | median | 1.64e-4 | 1,637 | 9,981,999 |
+| counter(i,k), |δ|=0.211 | 10th pct (tail) | 4.43e-5 | 1,637 | 36,931,961 |
+
+### What hierarchical pooling actually buys
+
+Pooling does not make a single tail pair individually significant sooner — nothing does.
+It makes the per-pair *estimate* useful (low MSE) long before it is significant. The
+empirical-Bayes shrinkage factor is n/(n + 4/tau^2) with tau = the population SD of the
+effect; the crossover where data outweighs the prior is n* = 4/tau^2.
+
+synergy: tau=0.1290 -> n* = 240 co-occurrences = 2,198,154 matches at the median pair (measured Zipf s=1.154)
+counter: tau=0.1054 -> n* = 360 co-occurrences = 2,198,154 matches at the median pair (measured Zipf s=1.154)
+
+## Sensitivity — synergy/counter variance split
+
+| split (syn:ctr) | M@80% synergy joint | M@80% counter joint |
+|---|---|---|
+| 25:75 | 94,334 | 26,204 |
+| 50:50 | 47,167 | 39,306 |
+| 75:25 | 31,445 | 78,612 |
+
