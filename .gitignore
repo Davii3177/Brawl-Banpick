@@ -12,6 +12,10 @@ node_modules
 research/transcripts/
 research/raw/
 research/candidates.txt
+# Liquipedia harvest. CC-BY-SA 3.0 permits redistribution, but share-alike would
+# propagate that licence to this repo. Regenerate with research/tools/liquipedia-harvest.js;
+# only derived aggregates are tracked, and they must credit Liquipedia.
+research/data/
 research/meta.txt
 research/shortlist.txt
 

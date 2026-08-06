@@ -77,9 +77,16 @@ so brawler strength is measuring the brawler, not who picks it.
 
 - **Outcome model + one-ply opponent response**: score each candidate as win probability
   *after* the opponent's best reply, not greedily.
-- **Bans**: no ground truth exists. Evaluate counterfactually — how much does removing
-  brawler X reduce the opponent's best achievable win probability from this state? Report
-  ranking stability across bootstrap resamples; an unstable ban list is worse than none.
+- **Bans**: ground truth *does* exist — 47,645 professional ban events, harvested from
+  Liquipedia (CC-BY-SA 3.0, must be credited). See `findings.md` §9.5. Do **not** rank bans
+  by the counterfactual alone: Spearman between our ladder solo strength and 2026 pro ban
+  rate is **-0.110**, so the counterfactual would not reproduce expert behaviour. Emz, Shade,
+  Surge and Mortis are heavily banned while sitting in the bottom half of ladder strength —
+  coordination-dependent brawlers the solo-queue corpus structurally undervalues.
+  Ship instead: a **per-map empirical ban prior** (bans are map-driven — top-3 share rises
+  from ~10% globally to 22-25% per map, and 23 maps clear 40 drafts), shrunk toward the
+  global rate, **blended** with the counterfactual rather than replaced by it. Report ranking
+  stability across bootstrap resamples; an unstable ban list is worse than none.
 - **Filter to the player's own pool** (owned, Power 11). Legitimate as a filter, never as
   a predictor.
 
