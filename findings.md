@@ -517,3 +517,35 @@ list by tier costs volume:
 
 Ship a Masters-specific ban list; pool everything below it toward the global map prior with
 tier offsets shrunk by volume.
+
+---
+
+# 11. A real side advantage, and the label resolution is correct (2026-08-06)
+
+Fitting exposed a base rate of **P(team 0 wins) = 0.50557** over 329,887 matches — 6.4 SE
+above 0.5. An antisymmetric model has no intercept, so this had to be explained before
+training could be specified.
+
+It is not a perspective-resolution bug. Splitting on which team the crawler's *discovering*
+player sat in:
+
+| discoverer's team | team-0 win rate |
+|---|---|
+| team 0 | 51.24% ± 0.24 |
+| team 1 | 49.88% ± 0.24 |
+
+Symmetric about 50.56, which decomposes exactly:
+
+- **side advantage +0.56pp** — independent of discoverer, uniform across all six modes
+  (gemGrab 50.58, knockout 50.59, bounty 50.40, brawlBall 51.08, hotZone 50.30, heist 50.36)
+- **discoverer skill excess +0.68pp** — independent of side; the club-seeded pool is slightly
+  stronger than average
+
+A resolution bug tied to perspective would make those rows diverge *asymmetrically about 50*.
+They do not. The discovering player is also split 50/50 across team indices (165,107 /
+165,617), so `teams[0]` is not the queried player's team — the ordering is intrinsic to the
+match record.
+
+**Consequence for training:** side is unknown at draft time and can never be a feature.
+Randomise A/B with label flip at data-prep time so the systematic +0.56pp becomes symmetric
+noise the antisymmetric model correctly ignores. See `phase3/ALGORITHM.md` §3.1.
